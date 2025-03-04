@@ -1,6 +1,7 @@
 @extends('frontend.Layouts.master')
 @section('content')
     <!-- Breadcrumb Begin -->
+
     <div class="breadcrumb-option">
         <div class="container">
             <div class="row">
@@ -23,33 +24,39 @@
                 <div class="col-lg-6">
                     <div class="product__details__pic">
                         <div class="product__details__pic__left product__thumb nice-scroll">
-                            <a class="pt active" href="#product-1">
-                                <img src="img/product/details/thumb-1.jpg" alt="">
-                            </a>
-                            <a class="pt" href="#product-2">
-                                <img src="img/product/details/thumb-2.jpg" alt="">
-                            </a>
-                            <a class="pt" href="#product-3">
-                                <img src="img/product/details/thumb-3.jpg" alt="">
-                            </a>
-                            <a class="pt" href="#product-4">
-                                <img src="img/product/details/thumb-4.jpg" alt="">
-                            </a>
+                            @php
+                                // Check if $product->imagepath is an array or a JSON string
+                                $images = is_array($product->imagepath)
+                                    ? $product->imagepath
+                                    : json_decode($product->imagepath, true);
+                                $firstFourImages = is_array($images) ? array_slice($images, 0, 3) : []; // Get the first 4 images
+                            @endphp
+
+                            @foreach ($firstFourImages as $index => $image)
+                                <a class="pt {{ $loop->first ? 'active' : '' }}" href="#product-{{ $index + 1 }}">
+                                    <img src="{{ asset('storage/' . $image) }}" alt="Product Thumbnail">
+                                </a>
+                            @endforeach
                         </div>
-                        <div class="product__details__slider__content">
-                            <div class="product__details__pic__slider owl-carousel">
-                                <img data-hash="product-1" class="product__big__img" src="img/product/details/product-1.jpg"
-                                    alt="">
-                                <img data-hash="product-2" class="product__big__img" src="img/product/details/product-3.jpg"
-                                    alt="">
-                                <img data-hash="product-3" class="product__big__img" src="img/product/details/product-2.jpg"
-                                    alt="">
-                                <img data-hash="product-4" class="product__big__img" src="img/product/details/product-4.jpg"
-                                    alt="">
-                            </div>
+                        <div class="content">
+                            @php
+                                // Check if $product->imagepath is an array or a JSON string
+                                $images = is_array($product->imagepath)
+                                    ? $product->imagepath
+                                    : json_decode($product->imagepath, true);
+                                $firstFourImages = is_array($images) ? array_slice($images, 0, 1) : []; // Get the first 4 images
+                            @endphp
+
+                            @foreach ($firstFourImages as $index => $image)
+                                <a class="pt {{ $loop->first ? 'active' : '' }}" href="#product-{{ $index + 1 }}">
+                                    <img src="{{ asset('storage/' . $image) }}" alt="Product Thumbnail">
+                                </a>
+                            @endforeach
                         </div>
+
                     </div>
                 </div>
+
                 <div class="col-lg-6">
                     <div class="product__details__text">
                         <h3>{{ $product->name }} {{-- <span>Brand: SKMEIMore Men Watches from SKMEI</span> --}}</h3>
@@ -93,40 +100,44 @@
                                 <li>
                                     <span>Available color:</span>
                                     <div class="color__checkbox">
-                                        <label for="red">
-                                            <input type="radio" name="color__radio" id="red" checked>
-                                            <span class="checkmark"></span>
+
                                         </label>
-                                        <label for="black">
-                                            <input type="radio" name="color__radio" id="black">
-                                            <span class="checkmark black-bg"></span>
-                                        </label>
-                                        <label for="grey">
-                                            <input type="radio" name="color__radio" id="grey">
-                                            <span class="checkmark grey-bg"></span>
-                                        </label>
+                                        @foreach ($product->colors as $color)
+                                            <label for="color-{{ $color->id }}">
+                                                <input type="radio" name="color__radio" id="color-{{ $color->id }}"
+                                                    value="{{ $color->id }}">
+                                                <span class="checkmark"
+                                                    style="background-color: {{ $color->code }};"></span>
+                                            </label>
+                                        @endforeach
+
                                     </div>
                                 </li>
                                 <li>
                                     <span>Available size:</span>
                                     <div class="size__btn">
-                                        <label for="xs-btn" class="active">
-                                            <input type="radio" id="xs-btn">
-                                            xs
-                                        </label>
-                                        <label for="s-btn">
-                                            <input type="radio" id="s-btn">
-                                            s
-                                        </label>
-                                        <label for="m-btn">
-                                            <input type="radio" id="m-btn">
-                                            m
-                                        </label>
-                                        <label for="l-btn">
-                                            <input type="radio" id="l-btn">
-                                            l
-                                        </label>
+                                        @php
+                                            // Ensure $product->size is properly formatted before decoding
+                                            $sizes = is_string($product->size)
+                                                ? json_decode($product->size, true)
+                                                : $product->size;
+                                            // Ensure it's an array after decoding
+                                            $sizes = is_array($sizes) ? $sizes : [];
+                                        @endphp
+
+                                        @if (!empty($sizes))
+                                            @foreach ($sizes as $index => $size)
+                                                <label for="size-{{ $index }}" class="size-label">
+                                                    <input type="radio" id="size-{{ $index }}" name="size"
+                                                        value="{{ $size }}">
+                                                    {{ $size }}
+                                                </label>
+                                            @endforeach
+                                        @else
+                                            <span>No size available</span>
+                                        @endif
                                     </div>
+
                                 </li>
                                 <li>
                                     <span>Promotions:</span>
@@ -140,31 +151,22 @@
                     <div class="product__details__tab">
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" data-toggle="tab" href="#tabs-1"
-                                    role="tab">Description</a>
+                                <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">Description</a>
                             </li>
-                            <li class="nav-item">
+                            {{--   <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">Specification</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab">Reviews ( 2 )</a>
-                            </li>
+                            </li> --}}
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane active" id="tabs-1" role="tabpanel">
                                 <h6>Description</h6>
-                                <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed
-                                    quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt loret.
-                                    Neque porro lorem quisquam est, qui dolorem ipsum quia dolor si. Nemo enim ipsam
-                                    voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia ipsu
-                                    consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Nulla
-                                    consequat massa quis enim.</p>
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
-                                    dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
-                                    nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium
-                                    quis, sem.</p>
+                                <p>{{ $product->description }}</p>
+
                             </div>
-                            <div class="tab-pane" id="tabs-2" role="tabpanel">
+                            {{--  <div class="tab-pane" id="tabs-2" role="tabpanel">
                                 <h6>Specification</h6>
                                 <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed
                                     quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt loret.
@@ -189,7 +191,7 @@
                                     dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
                                     nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium
                                     quis, sem.</p>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -200,102 +202,64 @@
                         <h5>RELATED PRODUCTS</h5>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="img/product/related/rp-1.jpg">
-                            <div class="label new">New</div>
-                            <ul class="product__hover">
-                                <li><a href="img/product/related/rp-1.jpg" class="image-popup"><span
-                                            class="arrow_expand"></span></a></li>
-                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Buttons tweed blazer</a></h6>
-                            <div class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
+                @foreach ($product->category->Product as $item)
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="product__item">
+
+
+                            @php
+                                $images = json_decode($item->imagepath, true);
+
+                                // Ensure it's an array and get the first image
+                                $firstImage = is_array($images) && count($images) > 0 ? $images[0] : null;
+                            @endphp
+                            @if ($firstImage)
+                                <div class="product__item__pic set-bg"
+                                    style="background-image: url('{{ asset('storage/' . str_replace('\\', '/', $firstImage)) }}');">
+                                    <div class="label new">New</div>
+                                    <ul class="product__hover">
+                                        <li><a href="{{ asset('storage/' . str_replace('\\', '/', $firstImage)) }}"
+                                                class="image-popup"><span class="arrow_expand"></span></a></li>
+                                        <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                                        <li><a href="#"><span class="icon_bag_alt"></span></a></li>
+                                    </ul>
+                                </div>
+                            @endif
+
+                            <div class="product__item__text">
+                                <h6><a href="{{ route('frontend.ProductDetails', $item->id) }}">{{ $item->name }}</a>
+                                </h6>
+                                <div class="rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                                <div class="product__price">$ {{ $item->price }}</div>
                             </div>
-                            <div class="product__price">$ 59.0</div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="img/product/related/rp-2.jpg">
-                            <ul class="product__hover">
-                                <li><a href="img/product/related/rp-2.jpg" class="image-popup"><span
-                                            class="arrow_expand"></span></a></li>
-                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Flowy striped skirt</a></h6>
-                            <div class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="product__price">$ 49.0</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="img/product/related/rp-3.jpg">
-                            <div class="label stockout">out of stock</div>
-                            <ul class="product__hover">
-                                <li><a href="img/product/related/rp-3.jpg" class="image-popup"><span
-                                            class="arrow_expand"></span></a></li>
-                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Cotton T-Shirt</a></h6>
-                            <div class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="product__price">$ 59.0</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="img/product/related/rp-4.jpg">
-                            <ul class="product__hover">
-                                <li><a href="img/product/related/rp-4.jpg" class="image-popup"><span
-                                            class="arrow_expand"></span></a></li>
-                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Slim striped pocket shirt</a></h6>
-                            <div class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="product__price">$ 59.0</div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
+
             </div>
         </div>
     </section>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const sizeLabels = document.querySelectorAll(".size-label");
+
+            sizeLabels.forEach(label => {
+                label.addEventListener("click", function() {
+                    // Remove "active" class from all labels
+                    sizeLabels.forEach(l => l.classList.remove("active"));
+
+                    // Add "active" class to the clicked label
+                    this.classList.add("active");
+                });
+            });
+        });
+    </script>
+
     <!-- Product Details Section End -->
 @endsection

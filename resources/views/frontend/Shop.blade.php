@@ -230,7 +230,6 @@
                 </div>
 
                 <div class="col-lg-9 col-md-9">
-
                     <div class="row">
                         @foreach ($products as $product)
                             <div class="col-lg-4 col-md-6">
@@ -250,7 +249,15 @@
                                                 <li><a href="{{ asset('storage/' . $firstImage) }}"
                                                         class="image-popup"><span class="arrow_expand"></span></a></li>
                                                 <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                                <li><a href="#"><span class="icon_bag_alt"></span></a></li>
+                                                <li>
+                                                    <a href="{{ route('frontend.addToCart', $product->id) }}">
+                                                        <span class="icon_bag_alt"></span>
+                                                    </a>
+
+
+                                                </li>
+
+
 
                                             </ul>
                                         </div>
@@ -284,8 +291,6 @@
                             </div>
                         </div>
                     </div>
-
-
                 </div>
 
             </div>

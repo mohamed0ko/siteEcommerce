@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\HomeController;
@@ -22,7 +23,7 @@ Route::get('/admin', function () {
 
 Route::get('/dashboard', [HomeController::class, 'Premiun'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/shop', [ShopeController::class, 'index'])->name('frontend.Shop');
-Route::get('/ProductDetails/{product}', [ShopeController::class, 'show'])->name('frontend.ProductDetails');
+Route::get('/product-details/{product?}', [ShopeController::class, 'show'])->name('frontend.ProductDetails');
 
 
 
@@ -46,14 +47,20 @@ Route::middleware('auth')->group(function () {
     Route::get('/color/edit/{color}', [ColorController::class, 'edit'])->name('backend.Color.edit');
     Route::put('/color/update/{color}', [ColorController::class, 'update'])->name('backend.Color.update');
     Route::delete('/color/destroy/{color}', [ColorController::class, 'destroy'])->name('backend.Color.destroy');
-}); //-------Product
-Route::get('/product', [ProductController::class, 'index'])->name('backend.Product.index');
-Route::get('/products/{product}', [ProductController::class, 'show'])->name('backend.Product.show');
-Route::post('/product/store', [ProductController::class, 'store'])->name('backend.Product.store');
-Route::get('/product/create', [ProductController::class, 'create'])->name('backend.Product.create');
-Route::get('/product/edit/{product}', [ProductController::class, 'edit'])->name('backend.Product.edit');
-Route::put('/product/update/{product}', [ProductController::class, 'update'])->name('backend.Product.update');
-Route::delete('/product/destroy/{product}', [ProductController::class, 'destroy'])->name('backend.Product.destroy');
-Route::get('/shop', [ShopeController::class, 'index'])->name('frontend.Shop');
-Route::get('/ProductDetails/{product}', [ShopeController::class, 'show'])->name('frontend.ProductDetails');
+    //-------Product
+    Route::get('/product', [ProductController::class, 'index'])->name('backend.Product.index');
+    Route::get('/products/{product}', [ProductController::class, 'show'])->name('backend.Product.show');
+    Route::post('/product/store', [ProductController::class, 'store'])->name('backend.Product.store');
+    Route::get('/product/create', [ProductController::class, 'create'])->name('backend.Product.create');
+    Route::get('/product/edit/{product}', [ProductController::class, 'edit'])->name('backend.Product.edit');
+    Route::put('/product/update/{product}', [ProductController::class, 'update'])->name('backend.Product.update');
+    Route::delete('/product/destroy/{product}', [ProductController::class, 'destroy'])->name('backend.Product.destroy');
+    //------------
+
+    Route::get('/cart', [CartController::class, 'cart'])->name('frontend.cart');
+    Route::get('/cart/{cartid}', [CartController::class, 'destroy'])->name('frontend.destroy');
+    Route::get('/add-cart/{productid}', [CartController::class, 'addToCart'])->name('frontend.addToCart');
+});
+
+
 require __DIR__ . '/auth.php';

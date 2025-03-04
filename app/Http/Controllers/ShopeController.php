@@ -12,9 +12,13 @@ class ShopeController extends Controller
         $products = Product::all();
         return view('frontend.Shop', compact('products'));
     }
-    public function show(Product $product)
+    public function show(Product $product = null)
     {
-
-        return view('frontend.ProductDetails', compact('product'));
+        if ($product) {
+            return view('frontend.ProductDetails', compact('product'));
+        } else {
+            $products = Product::all();
+            return view('frontend.Shop', compact('products'));
+        }
     }
 }
