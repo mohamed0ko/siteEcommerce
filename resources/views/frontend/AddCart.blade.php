@@ -26,9 +26,11 @@
                                 <tr>
                                     <th>Product</th>
                                     <th>Price</th>
+                                    <th></th>
                                     <th>Quantity</th>
                                     <th>Total</th>
                                     <th></th>
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -44,7 +46,9 @@
                                                 src="{{ asset('storage/' . str_replace('\\', '/', $firstImage)) }}"
                                                 alt="">
                                             <div class="cart__product__item__title">
-                                                <h6>{{ $cart->product->name }}</h6>
+                                                <h6><a style=" color: #111111;"
+                                                        href="/product-details/{{ $cart->product->id }}">{{ $cart->name }}</a>
+                                                </h6>
                                                 <div class="rating">
                                                     <i class="fa fa-star"></i>
                                                     <i class="fa fa-star"></i>
@@ -54,7 +58,17 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td class="cart__price">$ {{ $cart->product->price }}</td>
+                                        <td class="cart__price">$ {{ $cart->price }}</td>
+
+                                        <td class="cart__price" style=" color: #111111;">
+                                            @if ($cart->size)
+                                                {{ $cart->size }}/
+                                            @endif
+                                            @if ($cart->color)
+                                                {{ $cart->product->colors->find($cart->color)->name }}
+                                            @endif
+                                        </td>
+
                                         <td class="cart__quantity">
                                             <div class="pro-qty">
                                                 <input type="text" value="{{ $cart->quantityCart }}">

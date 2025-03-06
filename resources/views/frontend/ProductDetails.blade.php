@@ -20,6 +20,7 @@
     <!-- Product Details Section Begin -->
     <section class="product-details spad">
         <div class="container">
+
             <div class="row">
                 <div class="col-lg-6">
                     <div class="product__details__pic">
@@ -58,9 +59,11 @@
                 </div>
 
                 <div class="col-lg-6">
-                    <div class="product__details__text">
-                        <h3>{{ $product->name }} {{-- <span>Brand: SKMEIMore Men Watches from SKMEI</span> --}}</h3>
-                        {{--   <div class="rating">
+                    <form action="{{ route('frontend.addToCart', $product->id) }}" method="post">
+                        @csrf
+                        <div class="product__details__text">
+                            <h3>{{ $product->name }} {{-- <span>Brand: SKMEIMore Men Watches from SKMEI</span> --}}</h3>
+                            {{--   <div class="rating">
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
@@ -68,84 +71,90 @@
                             <i class="fa fa-star"></i>
                             <span>( 138 reviews )</span>
                         </div> --}}
-                        <div class="product__details__price">$ {{ $product->discount_price }}<span>$
-                                {{ $product->price }}</span></div>
-                        <p>Nemo enim ipsam voluptatem quia aspernatur aut odit aut loret fugit, sed quia consequuntur
-                            magni lores eos qui ratione voluptatem sequi nesciunt.</p>
-                        <div class="product__details__button">
-                            <div class="quantity">
-                                <span>Quantity:</span>
-                                <div class="pro-qty">
-                                    <input type="text" value="1">
+                            <div class="product__details__price">$ {{ $product->discount_price }}<span>$
+                                    {{ $product->price }}</span></div>
+                            <p>Nemo enim ipsam voluptatem quia aspernatur aut odit aut loret fugit, sed quia consequuntur
+                                magni lores eos qui ratione voluptatem sequi nesciunt.</p>
+                            <div class="product__details__button">
+
+                                <div class="quantity">
+                                    <span>Quantity:</span>
+                                    <div class="pro-qty">
+                                        <input name="quantityCart" type="text" value="1">
+                                    </div>
                                 </div>
+                                {{--   <a href="#" class="cart-btn"><span class="icon_bag_alt"></span> Add to cart</a> --}}
+                                <button type="submit" class="cart-btn"><span class="icon_bag_alt"></span> Add to
+                                    cart</button>
+                                <ul>
+                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                                    <li><a href="#"><span class="icon_adjust-horiz"></span></a></li>
+                                </ul>
+
+
                             </div>
-                            <a href="#" class="cart-btn"><span class="icon_bag_alt"></span> Add to cart</a>
-                            <ul>
-                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                <li><a href="#"><span class="icon_adjust-horiz"></span></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__details__widget">
-                            <ul>
-                                <li>
-                                    <span>Availability:</span>
-                                    <div class="stock__checkbox">
-                                        <label for="stockin">
-                                            In Stock
-                                            <input type="checkbox" id="stockin">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <span>Available color:</span>
-                                    <div class="color__checkbox">
-
-                                        </label>
-                                        @foreach ($product->colors as $color)
-                                            <label for="color-{{ $color->id }}">
-                                                <input type="radio" name="color__radio" id="color-{{ $color->id }}"
-                                                    value="{{ $color->id }}">
-                                                <span class="checkmark"
-                                                    style="background-color: {{ $color->code }};"></span>
+                            <div class="product__details__widget">
+                                <ul>
+                                    <li>
+                                        <span>Availability:</span>
+                                        <div class="stock__checkbox">
+                                            <label for="stockin">
+                                                In Stock
+                                                <input type="checkbox" id="stockin">
+                                                <span class="checkmark"></span>
                                             </label>
-                                        @endforeach
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span>Available color:</span>
+                                        <div class="color__checkbox">
 
-                                    </div>
-                                </li>
-                                <li>
-                                    <span>Available size:</span>
-                                    <div class="size__btn">
-                                        @php
-                                            // Ensure $product->size is properly formatted before decoding
-                                            $sizes = is_string($product->size)
-                                                ? json_decode($product->size, true)
-                                                : $product->size;
-                                            // Ensure it's an array after decoding
-                                            $sizes = is_array($sizes) ? $sizes : [];
-                                        @endphp
-
-                                        @if (!empty($sizes))
-                                            @foreach ($sizes as $index => $size)
-                                                <label for="size-{{ $index }}" class="size-label">
-                                                    <input type="radio" id="size-{{ $index }}" name="size"
-                                                        value="{{ $size }}">
-                                                    {{ $size }}
+                                            </label>
+                                            @foreach ($product->colors as $color)
+                                                <label for="color-{{ $color->id }}">
+                                                    <input type="radio" name="color" id="color-{{ $color->id }}"
+                                                        value="{{ $color->id }}">
+                                                    <span class="checkmark"
+                                                        style="background-color: {{ $color->code }};"></span>
                                                 </label>
                                             @endforeach
-                                        @else
-                                            <span>No size available</span>
-                                        @endif
-                                    </div>
 
-                                </li>
-                                <li>
-                                    <span>Promotions:</span>
-                                    <p>Free shipping</p>
-                                </li>
-                            </ul>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span>Available size:</span>
+                                        <div class="size__btn">
+                                            @php
+                                                // Ensure $product->size is properly formatted before decoding
+                                                $sizes = is_string($product->size)
+                                                    ? json_decode($product->size, true)
+                                                    : $product->size;
+                                                // Ensure it's an array after decoding
+                                                $sizes = is_array($sizes) ? $sizes : [];
+                                            @endphp
+
+                                            @if (!empty($sizes))
+                                                @foreach ($sizes as $index => $size)
+                                                    <label for="size-{{ $index }}" class="size-label">
+                                                        <input type="radio" id="size-{{ $index }}" name="size"
+                                                            value="{{ $size }}">
+                                                        {{ $size }}
+                                                    </label>
+                                                @endforeach
+                                            @else
+                                                <span>No size available</span>
+                                            @endif
+                                        </div>
+
+                                    </li>
+                                    <li>
+                                        <span>Promotions:</span>
+                                        <p>Free shipping</p>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
                 <div class="col-lg-12">
                     <div class="product__details__tab">
@@ -196,6 +205,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="related__title">
@@ -245,6 +255,7 @@
             </div>
         </div>
     </section>
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const sizeLabels = document.querySelectorAll(".size-label");
@@ -260,6 +271,7 @@
             });
         });
     </script>
+
 
     <!-- Product Details Section End -->
 @endsection

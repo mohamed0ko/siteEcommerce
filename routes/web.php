@@ -59,7 +59,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/cart', [CartController::class, 'cart'])->name('frontend.cart');
     Route::get('/cart/{cartid}', [CartController::class, 'destroy'])->name('frontend.destroy');
-    Route::get('/add-cart/{productid}', [CartController::class, 'addToCart'])->name('frontend.addToCart');
+    Route::post('/add-cart/{id}', [CartController::class, 'addToCart'])->name('frontend.addToCart');
 });
 
 
