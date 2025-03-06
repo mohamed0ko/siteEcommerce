@@ -60,6 +60,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/cart', [CartController::class, 'cart'])->name('frontend.cart');
     Route::get('/cart/{cartid}', [CartController::class, 'destroy'])->name('frontend.destroy');
     Route::post('/add-cart/{id}', [CartController::class, 'addToCart'])->name('frontend.addToCart');
+    Route::get('/checkout', [CartController::class, 'checkout'])->name('frontend.checkout');
+    Route::post('/checkoutStore', [CartController::class, 'checkoutStore'])->name('frontend.checkoutStore');
 });
 
 

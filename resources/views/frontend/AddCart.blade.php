@@ -116,7 +116,7 @@
                     <div class="cart__total__procced">
                         <h6>Cart total</h6>
                         <ul>
-                            <li>Subtotal <span>$ 750.0</span></li>
+                            <li>Subtotal <span>$ {{ number_format($total, 2, '.') }}</span></li>
                             <li>Total <span>${{ number_format($total, 2, '.') }}</span></li>
                         </ul>
                         <a href="#" class="primary-btn">Proceed to checkout</a>

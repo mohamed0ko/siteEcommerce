@@ -42,7 +42,7 @@
                     <div class="tip">2</div>
                 </a></li>
             <li><a href="{{ route('frontend.cart') }}"><span class="icon_bag_alt"></span>
-                    <div class="tip">2</div>
+                    <div class="tip">{{ $cartCount }}</div>
                 </a></li>
         </ul>
         <div class="offcanvas__logo">
@@ -62,20 +62,20 @@
             <div class="row">
                 <div class="col-xl-3 col-lg-2">
                     <div class="header__logo">
-                        <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                        <a href="/"><img src="img/logo.png" alt=""></a>
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-7">
                     <nav class="header__menu">
                         <ul>
-                            <li class="active"><a href="./index.html">Home</a></li>
+                            <li class="active"><a href="/">Home</a></li>
                             <li><a href="#">Women’s</a></li>
                             <li><a href="#">Men’s</a></li>
                             <li><a href="{{ route('frontend.Shop') }}">Shop</a></li>
                             <li><a href="#">Pages</a>
                                 <ul class="dropdown">
-                                    <li><a href="./product-details.html">Product Details</a></li>
-                                    <li><a href="./shop-cart.html">Shop Cart</a></li>
+                                    <li><a href="{{ route('frontend.ProductDetails') }}">Product Details</a></li>
+                                    <li><a href="/cart">Shop Cart</a></li>
                                     <li><a href="./checkout.html">Checkout</a></li>
                                     <li><a href="./blog-details.html">Blog Details</a></li>
                                 </ul>
@@ -121,7 +121,7 @@
                                     <div class="tip">2</div>
                                 </a></li>
                             <li><a href="{{ route('frontend.cart') }}"><span class="icon_bag_alt"></span>
-                                    <div class="tip">2</div>
+                                    <div class="tip">{{ $cartCount }}</div>
                                 </a></li>
                         </ul>
                     </div>
