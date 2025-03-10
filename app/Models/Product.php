@@ -43,4 +43,12 @@ class Product extends Model
     {
         return $this->belongsTo(Color::class);
     }
+    public function relatedProducts()
+    {
+        return $this->belongsToMany(Product::class, 'related_product', 'product_id', 'related_product_id');
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

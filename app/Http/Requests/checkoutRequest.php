@@ -31,7 +31,8 @@ class checkoutRequest extends FormRequest
             'postcode' => 'required|string|max:10',
             'phone' => 'required|string|max:20',
             'email' => 'required|email|max:255',
-            'note' => 'string|min:0,max:255',
+            'note' => 'nullable|string|min:0,max:255',
+            'status' => 'string',
         ];
     }
 }

@@ -134,7 +134,26 @@
     </header>
     <!-- Header Section End -->
     <!-- content Section Begin -->
-
+    @if ($errors->any())
+        <div class="alert alert-danger" role="alert">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    <style>
+        .alert {
+            transition: opacity 0.5s ease-out;
+            text-align: center;
+        }
+    </style>
+    @if (session('success'))
+        <div id="success-message" class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
     @yield('content')
 
     <!-- content Section End -->
@@ -147,7 +166,7 @@
                 <div class="col-lg-4 col-md-6 col-sm-7">
                     <div class="footer__about">
                         <div class="footer__logo">
-                            <a href="./index.html"><img src="{{ asset('img/logo.png') }}" alt=""></a>
+                            <a href="/"><img src="{{ asset('img/logo.png') }}" alt=""></a>
                         </div>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
                             cilisis.</p>
@@ -232,6 +251,20 @@
             </form>
         </div>
     </div>
+    <script>
+        // Wait for the document to load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get the success message element
+            const successMessage = document.getElementById('success-message');
+
+            // If the success message exists, hide it after 4 seconds
+            if (successMessage) {
+                setTimeout(function() {
+                    successMessage.style.display = 'none'; // Hide the message
+                }, 4000); // 4000 milliseconds = 4 seconds
+            }
+        });
+    </script>
     <!-- Search End -->
 
     <!-- Js Plugins -->
@@ -245,6 +278,8 @@
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/jquery.nicescroll.min.js"></script>
     <script src="js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js"></script>
+
 </body>
 
 </html>

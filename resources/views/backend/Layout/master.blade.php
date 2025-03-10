@@ -28,6 +28,9 @@
     <link rel="stylesheet" href="{{ asset('backend/plugins/daterangepicker/daterangepicker.css') }}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('backend/plugins/summernote/summernote-bs4.min.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOM9G1b6Dg4q7U2dY2K4G5x5P8e5zH1H5e5e5zH" crossorigin="anonymous">
+
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -241,11 +244,31 @@
                         data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-user"></i> <!-- Solid icon -->
+                                <p>
+                                    Users
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
 
+                                <li class="nav-item">
+                                    <a href="{{ route('backend.user.index') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>User Detail</p>
+
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
 
                         <li class="nav-item">
                             <a href="" class="nav-link">
-                                <i class="nav-icon fas fa-book"></i>
+
+                                <i class="nav-icon fa fa-layer-group"></i>
                                 <p>
                                     Categories
                                     <i class="fas fa-angle-left right"></i>
@@ -270,7 +293,8 @@
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-book"></i>
+                                <i class="nav-icon fa fa-palette"></i>
+
                                 <p>
                                     Color
                                     <i class="fas fa-angle-left right"></i>
@@ -293,7 +317,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-book"></i>
+                                <i class="nav-icon fa fa-product-hunt"></i>
                                 <p>
                                     Product
                                     <i class="fas fa-angle-left right"></i>
@@ -315,6 +339,29 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fa fa-cart-shopping"></i>
+                                <i class="fa fa-bag-shopping"></i>
+
+
+                                <p>
+                                    Orders
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+
+                                <li class="nav-item">
+                                    <a href="{{ route('backend.Order.index') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Orders Detail</p>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
+
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -348,7 +395,18 @@
                         </ul>
                     </div>
                 @endif
+                <style>
+                    .alert {
+                        transition: opacity 0.5s ease-out;
+                    }
+                </style>
+                @if (session('success'))
+                    <div id="success-message" class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
                 @yield('contentAdmin')
+
             </section>
             <!-- /.content-end -->
         </div>
@@ -366,7 +424,20 @@
         <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
+    <script>
+        // Wait for the document to load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get the success message element
+            const successMessage = document.getElementById('success-message');
 
+            // If the success message exists, hide it after 4 seconds
+            if (successMessage) {
+                setTimeout(function() {
+                    successMessage.style.display = 'none'; // Hide the message
+                }, 4000); // 4000 milliseconds = 4 seconds
+            }
+        });
+    </script>
     <!-- jQuery -->
     <script src="{{ asset('backend/plugins/jquery/jquery.min.js') }}"></script>
     <!-- jQuery UI 1.11.4 -->
@@ -401,6 +472,7 @@
     <script src="{{ asset('backend/dist/js/demo.js') }}"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{ asset('backend/dist/js/pages/dashboard.js') }}"></script>
+
 </body>
 
 </html>

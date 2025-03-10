@@ -18,7 +18,9 @@ return new class extends Migration
             $table->timestamps();
         });
     }
-
+    protected $hidden = [
+        'id', // Example: This would hide the id field
+    ];
     /**
      * Reverse the migrations.
      */

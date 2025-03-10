@@ -20,8 +20,9 @@ class Order extends Model
         'user_id',
     ];
 
-    public function orderDetails()
+
+    public function orderDetails() // Use camelCase
     {
-        return $this->hasMany(OrderDetails::class);
+        return $this->hasMany(OrderDetails::class); // Singular relationship name
     }
 }

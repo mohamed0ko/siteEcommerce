@@ -35,7 +35,7 @@
 
                             @foreach ($firstFourImages as $index => $image)
                                 <a class="pt {{ $loop->first ? 'active' : '' }}" href="#product-{{ $index + 1 }}">
-                                    <img src="{{ asset('storage/' . $image) }}" alt="Product Thumbnail">
+                                    <img src="{{ asset('storage/' . $image) }}" alt="Product Thumbnail" class="lazyload">
                                 </a>
                             @endforeach
                         </div>
@@ -83,8 +83,9 @@
                                         <input name="quantityCart" type="text" value="1">
                                     </div>
                                 </div>
-                                {{--   <a href="#" class="cart-btn"><span class="icon_bag_alt"></span> Add to cart</a> --}}
-                                <button type="submit" class="cart-btn"><span class="icon_bag_alt"></span> Add to
+
+                                <button style="border: none;  cursor: pointer;" type="submit" class="cart-btn"><span
+                                        class="icon_bag_alt"></span> Add to
                                     cart</button>
                                 <ul>
                                     <li><a href="#"><span class="icon_heart_alt"></span></a></li>

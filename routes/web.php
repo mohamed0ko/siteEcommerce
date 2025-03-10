@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\adminOrder;
+use App\Http\Controllers\adminOrderController;
+use App\Http\Controllers\adminUser;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ColorController;
@@ -33,6 +36,12 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     //admin
+    //------user
+    Route::get('/user', [adminUser::class, 'index'])->name('backend.user.index');
+    Route::get('/user/edit/{user}', [adminUser::class, 'edit'])->name('backend.user.edit');
+    Route::put('/user/update/{user}', [adminUser::class, 'update'])->name('backend.user.update');
+    Route::delete('/user/destroy/{user}', [adminUser::class, 'destroy'])->name('backend.user.destroy');
+
     //------categories
     Route::get('/categories', [CategoryController::class, 'index'])->name('backend.Categories.index');
     Route::post('/categories/store', [CategoryController::class, 'store'])->name('backend.Categories.store');
@@ -55,11 +64,21 @@ Route::middleware('auth')->group(function () {
     Route::get('/product/edit/{product}', [ProductController::class, 'edit'])->name('backend.Product.edit');
     Route::put('/product/update/{product}', [ProductController::class, 'update'])->name('backend.Product.update');
     Route::delete('/product/destroy/{product}', [ProductController::class, 'destroy'])->name('backend.Product.destroy');
-    //------------
+
+    //--------Order
+    Route::get('/order', [adminOrderController::class, 'index'])->name('backend.Order.index');
+    Route::get('/order/{order}', [adminOrderController::class, 'show'])->name('backend.Order.show');
+
+
+
+
+    //------------Home page Cart
 
     Route::get('/cart', [CartController::class, 'cart'])->name('frontend.cart');
     Route::get('/cart/{cartid}', [CartController::class, 'destroy'])->name('frontend.destroy');
     Route::post('/add-cart/{id}', [CartController::class, 'addToCart'])->name('frontend.addToCart');
+    Route::put('/cart/update-all', [CartController::class, 'updateCartAll'])->name('frontend.updateCartAll');
+
     Route::get('/checkout', [CartController::class, 'checkout'])->name('frontend.checkout');
     Route::post('/checkoutStore', [CartController::class, 'checkoutStore'])->name('frontend.checkoutStore');
 });

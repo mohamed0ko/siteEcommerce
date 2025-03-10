@@ -18,12 +18,14 @@ class ProductController extends Controller
 
         return view('backend.Product.index', compact('products'));
     }
+
     public function show(Product $product)
     {
 
 
         return view('backend.Product.show', compact('product',));
     }
+
     public function create()
     {
         $categoties = Category::all();
@@ -59,9 +61,6 @@ class ProductController extends Controller
 
         return redirect()->back()->with('success', 'Product created successfully with images and sizes.');
     }
-
-
-
 
     public function edit(Product $product)
     {
@@ -104,7 +103,6 @@ class ProductController extends Controller
         // Redirect with success message
         return to_route('backend.Product.index')->with('success', 'Product updated successfully.');
     }
-
 
 
     public function destroy(Product $product)

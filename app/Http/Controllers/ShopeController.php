@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use Illuminate\Http\Request;
+
 
 class ShopeController extends Controller
 {
@@ -12,13 +12,9 @@ class ShopeController extends Controller
         $products = Product::all();
         return view('frontend.Shop', compact('products'));
     }
-    public function show(Product $product = null)
+    public function show(Product $product)
     {
-        if ($product) {
-            return view('frontend.ProductDetails', compact('product'));
-        } else {
-            $products = Product::all();
-            return view('frontend.Shop', compact('products'));
-        }
+        $product->load(['category', 'colors', 'user']);
+        return view('frontend.ProductDetails', compact('product'));
     }
 }

@@ -7,7 +7,6 @@ use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderDetails;
 use App\Models\Product;
-use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,8 +16,9 @@ class CartController extends Controller
     {
         $userId = Auth::id();
         $cartProduct = Cart::where('user_id', $userId)->with('product')->get();
+
         $total = $cartProduct->sum(function ($cart) {
-            return $cart->product->price * $cart->quantityCart;
+            return $cart->product->discount_price * $cart->quantityCart;
         });
         return view('frontend.AddCart', compact('cartProduct', 'total'));
     }
@@ -48,7 +48,7 @@ class CartController extends Controller
             // If the same product with the same color & size exists, update the quantity
             $existingCart->quantityCart += $request->quantityCart;
             $existingCart->save();
-            return redirect()->back()->with('success', 'Cart updated successfully');
+            return redirect()->back()->with('success', 'Product add to cart');
         } else {
 
             $newCart = new Cart();
@@ -69,7 +69,7 @@ class CartController extends Controller
 
             $newCart->save();
 
-            return redirect()->back()->with('success', 'Product added to cart');
+            return redirect()->back()->with('success', 'Product add to cart');
         }
     }
 
@@ -79,7 +79,7 @@ class CartController extends Controller
         $cartDelete = Cart::find($cartid);
         $cartDelete->delete();
 
-        return redirect()->back()->with('success', 'cart delete successfully');
+        return redirect()->back()->with('success', 'Cart delete successfully');
     }
 
     public function checkout()
@@ -87,9 +87,24 @@ class CartController extends Controller
         $userId = Auth::id();
         $cartProduct = Cart::where('user_id', $userId)->with('product')->get();
         $total = $cartProduct->sum(function ($cart) {
-            return $cart->product->price * $cart->quantityCart;
+            return $cart->product->discount_price * $cart->quantityCart;
         });
         return view('frontend.Checkout', compact('cartProduct', 'total'));
+    }
+
+    public function updateCartAll(Request $request)
+    {
+        if (!$request->has('quantities')) {
+            return redirect()->back()->with('error', 'No quantities provided.');
+        }
+
+        foreach ($request->quantities as $cartId => $quantity) {
+            if ($quantity > 0) {
+                Cart::where('id', $cartId)->update(['quantityCart' => $quantity]);
+            }
+        }
+
+        return redirect()->back()->with('success', 'Cart updated successfully');
     }
 
     public function checkoutStore(checkoutRequest $request)
@@ -110,10 +125,12 @@ class CartController extends Controller
                 'price' => $cart->price,
                 'color' => $cart->color,
                 'imagepath' => $cart->imagepath,
+                'status' => 'pending',
+
             ]);
         }
         Cart::where('user_id', Auth::id())->delete();
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'successfully');
     }
 }

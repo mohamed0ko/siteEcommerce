@@ -21,6 +21,7 @@ return new class extends Migration
             $table->decimal('price');
             $table->string('color')->nullable();
             $table->json('imagepath')->nullable();
+            $table->string('status')->default('pending');
             $table->foreignIdFor(Order::class)->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
