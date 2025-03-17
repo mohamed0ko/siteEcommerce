@@ -64,9 +64,9 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
-        $categoties = Category::all();
+        $categories = Category::all();
         $colors = Color::all();
-        return view('backend.Product.edit', compact('product', 'categoties', 'colors'));
+        return view('backend.Product.edit', compact('product', 'categories', 'colors'));
     }
 
     public function update(ProductRequest $request, Product $product)

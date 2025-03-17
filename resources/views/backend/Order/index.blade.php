@@ -36,9 +36,7 @@
                                 <th style="width: 10%">
                                     Phone
                                 </th>
-                                <th style="width: 10%">
-                                    Status
-                                </th>
+
 
 
                             </tr>
@@ -71,14 +69,6 @@
 
 
                                 </td>
-                                <td>
-                                    @foreach ($order->orderDetails as $detail)
-                                        {{ $detail->status }}
-                                    @endforeach
-
-
-
-                                </td>
 
                                 <td class="project-actions
                                         text-right"
@@ -91,13 +81,13 @@
                                         Show
                                     </a>
                                     &nbsp;
-                                    {{--   <form action="{{ route('backend.user.destroy', $user->id) }}" method="POST"
-                                        onsubmit="return confirm('Are you sure you want to delete this Product ?');">
+                                    <form action="{{ route('backend.Order.destroy', $order->id) }}" method="POST"
+                                        onsubmit="return confirm('Are you sure you want to delete this Order ?');">
                                         @csrf
                                         @method('DELETE')
                                         <button class="btn btn-danger btn-sm" type="submit"> <i class="fas fa-trash">
                                             </i>Delete</button>
-                                    </form> --}}
+                                    </form>
                                 </td>
                             </tr>
                         </tbody>

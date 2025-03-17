@@ -30,16 +30,16 @@
                             <div class="form-group">
                                 <label for="category_id">Category</label>
                                 <select id="category_id" name="category_id" class="form-control custom-select">
-                                    <option selected disabled>Select one</option>
-                                    @foreach ($categoties as $category)
-                                        <option selected value="{{ old('category_id', $product->category_id) }}">
+                                    <option disabled {{ is_null($product->category_id) ? 'selected' : '' }}>Select one
+                                    </option>
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}"
+                                            {{ old('category_id', $product->category_id) == $category->id ? 'selected' : '' }}>
                                             {{ $category->name }}
                                         </option>
                                     @endforeach
-
-
-
                                 </select>
+
                             </div>
                             <div class="form-group">
                                 <label>Color</label>
@@ -144,20 +144,24 @@
                                     </div>
 
                                 </div>
-                                @if ($product)
-                                    <div class="one">
-                                        @php
-                                            $images = json_decode($product->imagepath);
-                                        @endphp
-                                        @if (is_array($images) && count($images))
+                                @if ($product && !empty($product->imagepath))
+                                    @php
+                                        $images = is_array($product->imagepath)
+                                            ? $product->imagepath
+                                            : json_decode($product->imagepath, true);
+                                    @endphp
+                                    @if (is_array($images) && count($images))
+                                        <div class="d-flex flex-wrap gap-2">
                                             @foreach ($images as $image)
-                                                <img alt="Avatar" class="table-avatar"
+                                                <img alt="Product Image" class="img-thumbnail shadow"
                                                     src="{{ asset('storage/' . $image) }}"
-                                                    style="border-radius: 50%; display: inline; width: 4rem;">
+                                                    style="border-radius: 10px; width: 80px; height: 80px; object-fit: cover; margin-top: 8px">
                                             @endforeach
-                                        @endif
-                                    </div>
+                                        </div>
+                                    @endif
                                 @endif
+
+
                             </div>
 
                         </div>

@@ -1436,7 +1436,8 @@ ol {
     font-size: 18px;
 }
 
-.sidebar__filter a {
+.sidebar__filter a,
+.filter {
     font-size: 14px;
     color: #0d0d0d;
     text-transform: uppercase;
@@ -1447,6 +1448,20 @@ ol {
     border: 2px solid #ff0000;
     position: absolute;
     right: 0;
+    bottom: -5px;
+    border-radius: 2px;
+}
+.rest {
+    font-size: 14px;
+    color: #0d0d0d;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 700;
+    display: inline-block;
+    padding: 5px 16px 5px 24px;
+    border: 2px solid #00aeff;
+    position: absolute;
+
     bottom: -5px;
     border-radius: 2px;
 }
@@ -1463,21 +1478,10 @@ ol {
     margin-bottom: 0;
 }
 
-.filter-range-wrap .range-slider .price-input:after {
-    position: absolute;
-    left: 81px;
-    top: 12px;
-    height: 1px;
-    width: 5px;
-    background: #0d0d0d;
-    content: "";
-}
-
 .filter-range-wrap .range-slider .price-input input {
     font-size: 16px;
     color: #0d0d0d;
-    max-width: 16%;
-    border: none;
+    max-width: 30%;
 }
 
 .filter-range-wrap .range-slider .price-input input:nth-child(1) {

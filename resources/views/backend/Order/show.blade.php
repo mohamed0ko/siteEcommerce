@@ -48,6 +48,7 @@
                                             <th>Size</th>
                                             <th>Color</th>
                                             <th>note</th>
+                                            <th>status</th>
 
                                         </tr>
                                     </thead>
@@ -75,6 +76,17 @@
                                                     @endif
                                                 </td>
                                                 <td>{{ $order->note ?? 'N/A' }}</td>
+                                                <td>
+
+                                                    @if ($detail->status == 'pending')
+                                                        <a class="btn btn-danger btn-sm"
+                                                            href="{{ route('backend.orderDelivery', $detail->id) }}">{{ $detail->status }}</a>
+                                                    @elseif ($detail->status == 'delivered')
+                                                        <a class="btn btn-success btn-sm"
+                                                            href="{{ route('backend.orderPending', $detail->id) }}">{{ $detail->status }}</a>
+                                                    @endif
+
+                                                </td>
 
 
 

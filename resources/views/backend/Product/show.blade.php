@@ -18,8 +18,8 @@
                                 <th>Dicount Price</th>
                                 <th>Size</th>
                                 <th>Status</th>
-                                <th>Image</th>
-                                <th></th>
+
+
                             </tr>
                         </thead>
                         <tbody>
@@ -33,8 +33,6 @@
                                     @foreach ($product->colors as $color)
                                         {{ $color->name }}
                                         @if (!$loop->last)
-                                            <!-- Add a separator if it's not the last color -->
-                                            ,
                                         @endif
                                     @endforeach
                                 </td>
@@ -58,41 +56,49 @@
                                 <td> <span class="badge badge-{{ $product->status ? 'success' : 'danger' }}">
                                         {{ $product->status ? 'Enable' : 'Disable' }}</span></td>
 
+                            </tr>
+                            <tr>
 
                                 <td>
-                                    @php
-                                        $images = json_decode($product->imagepath);
-                                    @endphp
-                                    @if (is_array($images) && count($images))
-                                        @foreach ($images as $image)
-                                            <img alt="Avatar" class="table-avatar" src="{{ asset('storage/' . $image) }}"
-                                                style="border-radius: 50%; display: inline; width: 3rem;">
-                                        @endforeach
+                                    @if ($product && !empty($product->imagepath))
+                                        @php
+                                            $images = is_array($product->imagepath)
+                                                ? $product->imagepath
+                                                : json_decode($product->imagepath, true);
+                                        @endphp
+                                        @if (is_array($images) && count($images))
+                                            <div class="d-flex">
+                                                @foreach ($images as $image)
+                                                    <img alt="Product Image" class="img-thumbnail shadow"
+                                                        src="{{ asset('storage/' . $image) }}"
+                                                        style="border-radius: 10px; width: 100px; height: 100px; object-fit: cover;">
+                                                @endforeach
+                                            </div>
+                                        @endif
                                     @endif
                                 </td>
-                                <td class="project-actions
-                                text-right">
-                                    <form action="{{ route('backend.Product.destroy', $product->id) }}" method="POST"
-                                        onsubmit="return confirm('Are you sure you want to delete this Product ?');">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn btn-danger btn-sm" type="submit"> <i class="fas fa-trash">
-                                            </i>Delete</button>
-                                    </form>
-                                    <a class="btn btn-info btn-sm"
-                                        href="{{ route('backend.Product.edit', $product->id) }}">
-                                        <i class="fas fa-pencil-alt">
-                                        </i>
-                                        Edit
-                                    </a>
-
-
-                                </td>
-
-                            </tr>
+                                </\tr>
 
                         </tbody>
                     </table>
+                    <div class="project-actions
+                    text-right" style="display:flex; float: right;">
+                        <form action="{{ route('backend.Product.destroy', $product->id) }}" method="POST"
+                            onsubmit="return confirm('Are you sure you want to delete this Product ?');">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-danger btn-sm" type="submit"> <i class="fas fa-trash">
+                                </i>Delete</button>
+                        </form>
+                        &nbsp;
+                        <a class="btn btn-info btn-sm" href="{{ route('backend.Product.edit', $product->id) }}">
+                            <i class="fas fa-pencil-alt">
+                            </i>
+                            Edit
+                        </a>
+
+
+                    </div>
                 </div>
                 <!-- /.col -->
             </div>

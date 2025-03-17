@@ -30,6 +30,7 @@ Route::get('/product-details/{product?}', [ShopeController::class, 'show'])->nam
 
 
 
+
 Route::middleware('auth')->group(function () {
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -68,9 +69,9 @@ Route::middleware('auth')->group(function () {
     //--------Order
     Route::get('/order', [adminOrderController::class, 'index'])->name('backend.Order.index');
     Route::get('/order/{order}', [adminOrderController::class, 'show'])->name('backend.Order.show');
-
-
-
+    Route::delete('/order/{order}', [adminOrderController::class, 'destroy'])->name('backend.Order.destroy');
+    Route::get('/orderPending/{id}', [adminOrderController::class, 'orderPending'])->name('backend.orderPending');
+    Route::get('/orderDelivery/{id}', [adminOrderController::class, 'orderDelivery'])->name('backend.orderDelivery');
 
     //------------Home page Cart
 
@@ -78,9 +79,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/cart/{cartid}', [CartController::class, 'destroy'])->name('frontend.destroy');
     Route::post('/add-cart/{id}', [CartController::class, 'addToCart'])->name('frontend.addToCart');
     Route::put('/cart/update-all', [CartController::class, 'updateCartAll'])->name('frontend.updateCartAll');
-
     Route::get('/checkout', [CartController::class, 'checkout'])->name('frontend.checkout');
     Route::post('/checkoutStore', [CartController::class, 'checkoutStore'])->name('frontend.checkoutStore');
+    //--------home
+
+
 });
 
 

@@ -26,14 +26,14 @@ class ProductRequest extends FormRequest
             'name' => 'required|string|max:255,min:2',
             'description' => 'required|string|max:255,min:2',
             // Ensure size is an array
-            'size' => 'required|array', // Validate size as an array
-            'size.*' => 'string|max:10',
-            'quantity' => 'required|integer|min:1',
+            'size' => 'nullable|array', // Validate size as an array
+            'size.*' => 'nullable|string|max:10',
+            'quantity' => 'required|integer|min:0',
             'price' => 'required|numeric|min:0',
-            'discount_price' => 'nullable|numeric|min:0|lt:price',
+            'discount_price' => 'nullable|numeric|lt:price',
             'status' => 'string',
             'category_id' => 'required|exists:categories,id',
-            'color_id' => 'required|array',
+            'color_id' => 'nullable|array',
             'color_id.*' => 'exists:colors,id',
         ];
         if ($this->route()->getActionMethod() === 'store') {

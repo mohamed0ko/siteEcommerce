@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\OrderDetails;
 
 class adminOrderController extends Controller
 {
@@ -24,5 +25,30 @@ class adminOrderController extends Controller
             return $s->product->price * $s->quantityCart;
         });
         return view('backend.Order.show', compact('order', 'total'));
+    }
+
+    public function orderDelivery($id)
+    {
+        $order = OrderDetails::find($id);
+        $order->status = 'delivered';
+        $order->save();
+
+
+        return redirect()->back()->with('success', 'Order marked as Delivered.');
+    }
+
+    public function orderPending($id)
+    {
+        $order = OrderDetails::find($id);
+        $order->status = 'pending';
+        $order->save();
+
+        return redirect()->back()->with('success', 'Order marked as Pending.');
+    }
+
+    public function destroy(Order $order)
+    {
+        $order->delete();
+        return redirect()->back()->with('success', 'Order delete successfully.');
     }
 }

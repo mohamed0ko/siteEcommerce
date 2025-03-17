@@ -61,22 +61,22 @@
                                 <td>
                                     <ul class="list-inline">
                                         @php
-                                            $images = json_decode($product->imagepath);
+                                            $images = json_decode($product->imagepath, true); // Decode JSON to array
+                                            $firstImage = is_array($images) && count($images) ? $images[0] : null;
                                         @endphp
-                                        @if (is_array($images) && count($images))
-                                            @foreach ($images as $image)
-                                                <li class="list-inline-item">
-                                                    <img alt="Avatar" class="table-avatar"
-                                                        src="{{ asset('storage/' . $image) }}"
-                                                        style="border-radius: 50%; display: inline; width: 4rem;">
-                                                </li>
-                                            @endforeach
+
+                                        @if ($firstImage)
+                                            <img alt="Product Image" class="img-thumbnail shadow-sm"
+                                                src="{{ asset('storage/' . $firstImage) }}"
+                                                style="border-radius: 10px; width: 80px; height: 80px; object-fit: cover;">
                                         @endif
+
                                     </ul>
 
                                 </td>
                                 <td class="project_progress">
                                     <span class="badge badge-primary"> ${{ $product->price }}</span>
+                                    <span class="badge badge-primary"> ${{ $product->category->name }}</span>
                                 </td>
                                 <td class="project_progress">
                                     <span class="badge badge-primary text-center"> {{ $product->quantity }}</span>
@@ -88,7 +88,9 @@
                                     <span class="badge badge-{{ $product->status ? 'success' : 'danger' }}">
                                         {{ $product->status ? 'Enable' : 'Disable' }}</span>
 
+
                                 </td>
+
                                 <td class="project-actions
                                         text-right"
                                     style="display:flex; float: right;">
@@ -100,7 +102,8 @@
                                         View
                                     </a>
                                     &nbsp;
-                                    <a class="btn btn-info btn-sm" href="{{ route('backend.Product.edit', $product->id) }}">
+                                    <a class="btn btn-info btn-sm"
+                                        href="{{ route('backend.Product.edit', $product->id) }}">
                                         <i class="fas fa-pencil-alt">
                                         </i>
                                         Edit

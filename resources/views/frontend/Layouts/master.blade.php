@@ -27,10 +27,9 @@
 
 <body>
     <!-- Page Preloder -->
-    <div {{-- id="preloder --}}">
-        <div{{--  class="loader" --}}>
-    </div>
-    </div>
+    {{--   <div id="preloder">
+        <div class="loader"></div>
+    </div> --}}
 
     <!-- Offcanvas Menu Begin -->
     <div class="offcanvas-menu-overlay"></div>
@@ -145,13 +144,18 @@
     @endif
     <style>
         .alert {
-            transition: opacity 0.5s ease-out;
+            transition: opacity 0.4s ease-out;
             text-align: center;
         }
     </style>
     @if (session('success'))
         <div id="success-message" class="alert alert-success">
             {{ session('success') }}
+        </div>
+    @endif
+    @if (session('error'))
+        <div id="success-message" class="alert alert-danger">
+            {{ session('error') }}
         </div>
     @endif
     @yield('content')
@@ -241,13 +245,17 @@
         </div>
     </footer>
     <!-- Footer Section End -->
-
+    @php
+        use Illuminate\Support\Facades\Request;
+    @endphp
     <!-- Search Begin -->
     <div class="search-model">
         <div class="h-100 d-flex align-items-center justify-content-center">
             <div class="search-close-switch">+</div>
-            <form class="search-model-form">
-                <input type="text" id="search-input" placeholder="Search here.....">
+            <form method="GET" class="search-model-form">
+                <input type="text" name="Search" value="{{ Request::input('Search') }}" id="search-input"
+                    placeholder="Search here.....">
+
             </form>
         </div>
     </div>
@@ -257,28 +265,30 @@
             // Get the success message element
             const successMessage = document.getElementById('success-message');
 
-            // If the success message exists, hide it after 4 seconds
             if (successMessage) {
                 setTimeout(function() {
-                    successMessage.style.display = 'none'; // Hide the message
-                }, 4000); // 4000 milliseconds = 4 seconds
+                    successMessage.style.display = 'none';
+                }, 4000);
             }
         });
     </script>
     <!-- Search End -->
 
-    <!-- Js Plugins -->
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.magnific-popup.min.js"></script>
-    <script src="js/jquery-ui.min.js"></script>
-    <script src="js/mixitup.min.js"></script>
-    <script src="js/jquery.countdown.min.js"></script>
-    <script src="js/jquery.slicknav.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/jquery.nicescroll.min.js"></script>
+    <!-- Load jQuery first -->
+    <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
+
+    <!-- Then load jQuery-UI -->
+    <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
+
+    <!-- Other scripts -->
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.magnific-popup.min.js') }}"></script>
+    <script src="{{ asset('js/mixitup.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.countdown.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.slicknav.js') }}"></script>
+    <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.nicescroll.min.js') }}"></script>
     <script src="js/main.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js"></script>
 
 </body>
 

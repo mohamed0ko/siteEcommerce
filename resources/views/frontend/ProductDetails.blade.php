@@ -1,5 +1,6 @@
 @extends('frontend.Layouts.master')
 @section('content')
+
     <!-- Breadcrumb Begin -->
 
     <div class="breadcrumb-option">
@@ -83,10 +84,11 @@
                                         <input name="quantityCart" type="text" value="1">
                                     </div>
                                 </div>
-
-                                <button style="border: none;  cursor: pointer;" type="submit" class="cart-btn"><span
-                                        class="icon_bag_alt"></span> Add to
-                                    cart</button>
+                                <button type="submit" class="cart-btn" style="border: none; cursor: pointer;"
+                                    {{ $product->quantity <= 0 ? 'disabled' : '' }}>
+                                    <span class="icon_bag_alt"></span>
+                                    {{ $product->quantity > 0 ? 'Add to Cart' : 'Out of Stock' }}
+                                </button>
                                 <ul>
                                     <li><a href="#"><span class="icon_heart_alt"></span></a></li>
                                     <li><a href="#"><span class="icon_adjust-horiz"></span></a></li>
@@ -216,25 +218,26 @@
                 @foreach ($product->category->Product as $item)
                     <div class="col-lg-3 col-md-4 col-sm-6">
                         <div class="product__item">
-
-
                             @php
-                                $images = json_decode($item->imagepath, true);
-
-                                // Ensure it's an array and get the first image
-                                $firstImage = is_array($images) && count($images) > 0 ? $images[0] : null;
+                                $images = is_array($item->imagepath)
+                                    ? $item->imagepath
+                                    : json_decode($item->imagepath, true);
+                                $firstImage = !empty($images) ? $images[0] : null;
                             @endphp
+
                             @if ($firstImage)
                                 <div class="product__item__pic set-bg"
-                                    style="background-image: url('{{ asset('storage/' . str_replace('\\', '/', $firstImage)) }}');">
+                                    style="background-image: url('{{ asset('storage/' . $firstImage) }}');">
                                     <div class="label new">New</div>
                                     <ul class="product__hover">
-                                        <li><a href="{{ asset('storage/' . str_replace('\\', '/', $firstImage)) }}"
-                                                class="image-popup"><span class="arrow_expand"></span></a></li>
+                                        <li><a href="{{ asset('storage/' . $firstImage) }}" class="image-popup"><span
+                                                    class="arrow_expand"></span></a></li>
                                         <li><a href="#"><span class="icon_heart_alt"></span></a></li>
                                         <li><a href="#"><span class="icon_bag_alt"></span></a></li>
                                     </ul>
                                 </div>
+                            @else
+                                <p>No image available</p>
                             @endif
 
                             <div class="product__item__text">

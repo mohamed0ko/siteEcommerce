@@ -36,6 +36,9 @@ class CartController extends Controller
         if ($request->quantityCart <= 0) {
             return redirect()->back()->with('error', 'Invalid quantity');
         }
+        if ($product->quantity < $request->quantityCart) {
+            return redirect()->back()->with('error', 'Not enough stock available!');
+        }
 
         // Check if the cart has the same product with the same color & size
         $existingCart = Cart::where('user_id', $userId)
@@ -98,14 +101,27 @@ class CartController extends Controller
             return redirect()->back()->with('error', 'No quantities provided.');
         }
 
+        $cartItems = Cart::whereIn('id', array_keys($request->quantities))->with('product')->get();
+
+        foreach ($cartItems as $cart) {
+            $product = $cart->product;
+
+            // Check stock availability
+            if ($product->quantity < $request->quantities[$cart->id]) {
+                return redirect()->back()->with('error', 'Not enough stock for ' . $product->name);
+            }
+        }
+
+        // Update cart quantities
         foreach ($request->quantities as $cartId => $quantity) {
             if ($quantity > 0) {
                 Cart::where('id', $cartId)->update(['quantityCart' => $quantity]);
             }
         }
 
-        return redirect()->back()->with('success', 'Cart updated successfully');
+        return redirect()->back()->with('success', 'Cart updated successfully.');
     }
+
 
     public function checkoutStore(checkoutRequest $request)
     {
@@ -113,9 +129,21 @@ class CartController extends Controller
         $From['user_id'] = Auth::id();
         $order = Order::create($From);
 
-        $cartProduct = Cart::where('user_id',  Auth::id())->with('product')->get();
+        $cartProduct = Cart::where('user_id', Auth::id())->with('product')->get();
 
         foreach ($cartProduct as $cart) {
+            $product = Product::find($cart->product_id);
+
+            // Check if enough stock is available
+            if ($product->quantity < $cart->quantityCart) {
+                return redirect()->back()->with('error', 'Not enough stock for ' . $product->name);
+            }
+
+            // Reduce product stock
+            $product->quantity -= $cart->quantityCart;
+            $product->save();
+
+            // Save order details
             OrderDetails::create([
                 'order_id' => $order->id,
                 'product_id' => $cart->product_id,
@@ -126,11 +154,12 @@ class CartController extends Controller
                 'color' => $cart->color,
                 'imagepath' => $cart->imagepath,
                 'status' => 'pending',
-
             ]);
         }
+
+        // Clear cart after checkout
         Cart::where('user_id', Auth::id())->delete();
 
-        return redirect()->back()->with('success', 'successfully');
+        return redirect()->back()->with('success', 'Order placed successfully!');
     }
 }

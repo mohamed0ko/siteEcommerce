@@ -2,16 +2,63 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Color;
 use App\Models\Product;
+use Illuminate\Http\Request;
 
 
 class ShopeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::all();
-        return view('frontend.Shop', compact('products'));
+        $productQuery = Product::query()->with('category');
+        $categories = Category::with('Product')->has('Product')->get();
+        $colors = Color::with('products')->has('products')->get();
+        $sizes = Product::has('products')->pluck('size', 'id');
+
+
+
+
+        $Search = ($request->input('Search'));
+        $color = ($request->input('color'));
+        $min = ($request->input('min', 0));
+        $max = ($request->input('max'));
+
+
+
+
+        if (!empty($Search)) {
+
+            $productQuery->where('name', 'like', "%{$Search}%");
+        }
+
+
+        $productQuery->where(function ($query) use ($min) {
+            $query->where('price', '>=', $min)
+                ->orWhere('discount_price', '>=', $min);
+        });
+
+        if (!empty($max)) {
+            $productQuery->where(function ($query) use ($max) {
+                $query->where('price', '<=', $max)
+                    ->orWhere('discount_price', '<=', $max);
+            });
+        }
+
+
+        if (!empty($color)) {
+            $productQuery->whereHas('colors', function ($query) use ($color) {
+                $query->whereIn('colors.id', $color);
+            });
+        }
+        $sql = $productQuery->toSql();
+        $bindings = $productQuery->getBindings();
+        $results = $productQuery->get();
+        $products = $productQuery->get();
+        return view('frontend.Shop', compact('products', 'categories', 'colors',));
     }
+
     public function show(Product $product)
     {
         $product->load(['category', 'colors', 'user']);
