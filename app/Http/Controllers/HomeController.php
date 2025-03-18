@@ -22,6 +22,7 @@ class HomeController extends Controller
             $order = Order::all();
             return view('backend.index', compact('user', 'category', 'product', 'order'));
         } elseif ($role == 0) {
+
             return view('frontend.dashboard');
         }
     }

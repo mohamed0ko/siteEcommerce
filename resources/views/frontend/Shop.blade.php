@@ -57,12 +57,12 @@
                                     <div class="range-slider">
                                         <div class="price-input">
                                             <p>Min:</p>
-                                            <input min="1" type="number" name="min"
-                                                value="{{ request('min', 1) }}" id="min">
+                                            <input min="0" max="{{ $priceOptions->maxPrice }}" type="number"
+                                                name="min" value="{{ request('min', 1) }}" id="min">
 
                                             <p>Max:</p>
-                                            <input type="number" name="max" value="{{ request('max') }}"
-                                                id="max">
+                                            <input min="{{ $priceOptions->minPrice }}" max="{{ $priceOptions->maxPrice }}"
+                                                type="number" name="max" value="{{ request('max') }}" id="max">
 
 
                                         </div>
@@ -151,8 +151,15 @@
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
                                             </div>
-                                            <div class="product__price">${{ $product->discount_price }}<span>$
-                                                    {{ $product->price }}</span></div>
+                                            <div class="product__price">
+                                                @if ($product->discount_price and $product->price)
+                                                    ${{ $product->discount_price }}
+                                                    <span>${{ $product->price }}</span>
+                                                @else
+                                                    $ {{ $product->price }}
+                                                @endif
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

@@ -52,11 +52,20 @@ class ShopeController extends Controller
                 $query->whereIn('colors.id', $color);
             });
         }
+
         $sql = $productQuery->toSql();
         $bindings = $productQuery->getBindings();
         $results = $productQuery->get();
         $products = $productQuery->get();
-        return view('frontend.Shop', compact('products', 'categories', 'colors',));
+        $prices = $products->pluck('price')->merge($products->pluck('discount_price'))->filter()->all();
+
+        $priceOptions = new \stdClass();
+        $priceOptions->minPrice = !empty($prices) ? min($prices) : 0;
+        $priceOptions->maxPrice = !empty($prices) ? max($prices) : 0;
+
+
+
+        return view('frontend.Shop', compact('products', 'categories', 'colors', 'priceOptions'));
     }
 
     public function show(Product $product)
