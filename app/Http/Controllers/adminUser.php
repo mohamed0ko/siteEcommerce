@@ -26,8 +26,9 @@ class adminUser extends Controller
             'email' => 'email|unique:users,email,' . $user->id,
             'phone' => 'nullable|string|max:15',
             'address' => 'nullable|string',
-            'user_type' => 'required|integer|in:0,1',
+            'role' => 'required|string|in:admin,user,editor',
         ]);
+
 
         $user->update($form);
 

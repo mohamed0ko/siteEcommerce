@@ -68,8 +68,11 @@
                                 </td>
                                 <td class="project-state">
 
-                                    <span class="badge badge-{{ $user->user_type ? 'danger' : 'success' }}">
-                                        {{ $user->user_type ? 'admin' : 'user' }}</span>
+                                    <span
+                                        class="badge badge-{{ $user->role === 'admin' ? 'danger' : ($user->role === 'editor' ? 'warning' : 'success') }}">
+                                        {{ ucfirst($user->role) }}
+                                    </span>
+
 
 
                                 </td>

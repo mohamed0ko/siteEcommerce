@@ -12,18 +12,22 @@ use Illuminate\Support\Facades\Auth as FacadesAuth;
 
 class HomeController extends Controller
 {
-    public function Premiun()
+    public function Adminpage()
     {
-        $role = FacadesAuth::User()->user_type;
-        if ($role == 1) {
-            $user = User::all();
-            $category = Category::all();
-            $product = Product::all();
-            $order = Order::all();
-            return view('backend.index', compact('user', 'category', 'product', 'order'));
-        } elseif ($role == 0) {
 
-            return view('frontend.dashboard');
-        }
+        $user = User::all();
+        $category = Category::all();
+        $product = Product::all();
+        $order = Order::all();
+        return view('backend.index', compact('user', 'category', 'product', 'order'));
+    }
+
+    public function Homepage()
+    {
+        $product = Product::all();
+        $Newproduct = Product::orderBy('created_at', 'desc')->get();
+
+
+        return view('frontend.dashboard', compact('Newproduct', 'product'));
     }
 }

@@ -72,8 +72,18 @@
                             <i class="fa fa-star"></i>
                             <span>( 138 reviews )</span>
                         </div> --}}
-                            <div class="product__details__price">$ {{ $product->discount_price }}<span>$
-                                    {{ $product->price }}</span></div>
+                            <div class="product__details__price">
+                                @if ($product->discount_price)
+                                    $ {{ $product->discount_price }}
+                                    <span>$
+                                        {{ $product->price }}</span>
+                                @else
+                                    $
+                                    {{ $product->price }}
+                                @endif
+                            </div>
+
+
                             <p>Nemo enim ipsam voluptatem quia aspernatur aut odit aut loret fugit, sed quia consequuntur
                                 magni lores eos qui ratione voluptatem sequi nesciunt.</p>
                             <div class="product__details__button">
@@ -108,22 +118,23 @@
                                             </label>
                                         </div>
                                     </li>
+
                                     <li>
                                         <span>Available color:</span>
                                         <div class="color__checkbox">
-
-                                            </label>
-                                            @foreach ($product->colors as $color)
+                                            @forelse ($product->colors as $color)
                                                 <label for="color-{{ $color->id }}">
                                                     <input type="radio" name="color" id="color-{{ $color->id }}"
                                                         value="{{ $color->id }}">
                                                     <span class="checkmark"
                                                         style="background-color: {{ $color->code }};"></span>
                                                 </label>
-                                            @endforeach
-
+                                            @empty
+                                                <p>No color available</p>
+                                            @endforelse
                                         </div>
                                     </li>
+
                                     <li>
                                         <span>Available size:</span>
                                         <div class="size__btn">
@@ -132,8 +143,17 @@
                                                 $sizes = is_string($product->size)
                                                     ? json_decode($product->size, true)
                                                     : $product->size;
+
                                                 // Ensure it's an array after decoding
                                                 $sizes = is_array($sizes) ? $sizes : [];
+
+                                                // Remove any null values from the array
+                                                $sizes = array_filter($sizes, function ($size) {
+                                                    return !is_null($size);
+                                                });
+
+                                                // Re-index the array after filtering out null values
+                                                $sizes = array_values($sizes);
                                             @endphp
 
                                             @if (!empty($sizes))
@@ -145,11 +165,12 @@
                                                     </label>
                                                 @endforeach
                                             @else
-                                                <span>No size available</span>
+                                                <p>No size available</p>
                                             @endif
                                         </div>
-
                                     </li>
+
+
                                     <li>
                                         <span>Promotions:</span>
                                         <p>Free shipping</p>

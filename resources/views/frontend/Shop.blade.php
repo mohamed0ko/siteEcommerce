@@ -123,8 +123,7 @@
                                         @if ($firstImage)
                                             <div class="product__item__pic set-bg"
                                                 data-setbg="{{ asset('storage/' . $firstImage) }}">
-                                                {{--   <img src="{{ asset('storage/' . $firstImage) }}" alt="Product Image"> --}}
-                                                {{--  <div class="label new">New</div> --}}
+
                                                 <ul class="product__hover">
                                                     <li><a href="{{ asset('storage/' . $firstImage) }}"
                                                             class="image-popup"><span class="arrow_expand"></span></a></li>

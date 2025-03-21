@@ -41,16 +41,19 @@
 
                             <div class="form-group">
                                 <label for="status">Roles</label>
-                                <select id="status" name="user_type" class="form-control custom-select">
+                                <select id="status" name="role" class="form-control custom-select">
                                     <option selected disabled>Select Role</option>
-                                    <option value="1"
-                                        {{ old('user_type', $user->user_type ?? '') == 1 ? 'selected' : '' }}>
-                                        Admin</option>
-                                    <option value="0"
-                                        {{ old('user_type', $user->user_type ?? '') == 0 ? 'selected' : '' }}>
+                                    <option value="admin"
+                                        {{ old('role', $user->role ?? '') == 'admin' ? 'selected' : '' }}>Admin
+                                    </option>
+                                    <option value="user" {{ old('role', $user->role ?? '') == 'user' ? 'selected' : '' }}>
                                         User</option>
+                                    <option value="editor"
+                                        {{ old('role', $user->role ?? '') == 'editor' ? 'selected' : '' }}>Editor
+                                    </option>
                                 </select>
                             </div>
+
 
 
                         </div>

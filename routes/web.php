@@ -12,38 +12,21 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ShopeController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('frontend.index');
-});
-Route::get('/admin', function () {
-    return view('backend.index');
-});
-
-/* Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard'); */
 
 
-Route::get('/dashboard', [HomeController::class, 'Premiun'])->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/Home', [HomeController::class, 'Homepage'])->name('dashboard');
 Route::get('/shop', [ShopeController::class, 'index'])->name('frontend.Shop');
 Route::get('/product-details/{product?}', [ShopeController::class, 'show'])->name('frontend.ProductDetails');
 
-
-
-
-Route::middleware('auth')->group(function () {
-
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    //admin
-    //------user
+Route::middleware('admin')->group(function () {
     Route::get('/user', [adminUser::class, 'index'])->name('backend.user.index');
     Route::get('/user/edit/{user}', [adminUser::class, 'edit'])->name('backend.user.edit');
     Route::put('/user/update/{user}', [adminUser::class, 'update'])->name('backend.user.update');
     Route::delete('/user/destroy/{user}', [adminUser::class, 'destroy'])->name('backend.user.destroy');
-
-    //------categories
+});
+Route::middleware(['editor'])->group(function () {
+    Route::get('/Admin', [HomeController::class, 'Adminpage'])->name('backend.index');
     Route::get('/categories', [CategoryController::class, 'index'])->name('backend.Categories.index');
     Route::post('/categories/store', [CategoryController::class, 'store'])->name('backend.Categories.store');
     Route::get('/categories/create', [CategoryController::class, 'create'])->name('backend.Categories.create');
@@ -72,8 +55,15 @@ Route::middleware('auth')->group(function () {
     Route::delete('/order/{order}', [adminOrderController::class, 'destroy'])->name('backend.Order.destroy');
     Route::get('/orderPending/{id}', [adminOrderController::class, 'orderPending'])->name('backend.orderPending');
     Route::get('/orderDelivery/{id}', [adminOrderController::class, 'orderDelivery'])->name('backend.orderDelivery');
+});
 
-    //------------Home page Cart
+Route::middleware('auth')->group(function () {
+
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+Route::middleware(['user',])->group(function () {
 
     Route::get('/cart', [CartController::class, 'cart'])->name('frontend.cart');
     Route::get('/cart/{cartid}', [CartController::class, 'destroy'])->name('frontend.destroy');
@@ -81,9 +71,6 @@ Route::middleware('auth')->group(function () {
     Route::put('/cart/update-all', [CartController::class, 'updateCartAll'])->name('frontend.updateCartAll');
     Route::get('/checkout', [CartController::class, 'checkout'])->name('frontend.checkout');
     Route::post('/checkoutStore', [CartController::class, 'checkoutStore'])->name('frontend.checkoutStore');
-    //--------home
-
-
 });
 
 
