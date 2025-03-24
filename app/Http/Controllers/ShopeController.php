@@ -10,9 +10,17 @@ use Illuminate\Http\Request;
 
 class ShopeController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request, $caregory = null)
     {
+
+
         $productQuery = Product::query()->with('category');
+        if ($caregory) {
+            $productQuery = Product::query()->with('category')->where('category_id', $caregory);
+        }
+
+
+
         $categories = Category::with('Product')->has('Product')->get();
         $colors = Color::with('products')->has('products')->get();
         $sizes = Product::has('products')->pluck('size', 'id');
@@ -57,6 +65,8 @@ class ShopeController extends Controller
         $bindings = $productQuery->getBindings();
         $results = $productQuery->get();
         $products = $productQuery->get();
+
+
         $prices = $products->pluck('price')->merge($products->pluck('discount_price'))->filter()->all();
 
         $priceOptions = new \stdClass();

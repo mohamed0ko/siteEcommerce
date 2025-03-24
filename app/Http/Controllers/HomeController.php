@@ -24,10 +24,11 @@ class HomeController extends Controller
 
     public function Homepage()
     {
-        $product = Product::all();
+        $product = Product::with('category')->get();
+        $categories = Category::with('Product')->has('Product')->get();
         $Newproduct = Product::orderBy('created_at', 'desc')->get();
 
 
-        return view('frontend.dashboard', compact('Newproduct', 'product'));
+        return view('frontend.dashboard', compact('Newproduct', 'product', 'categories'));
     }
 }

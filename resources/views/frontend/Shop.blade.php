@@ -37,8 +37,7 @@
                                         @foreach ($categories as $category)
                                             <div class="card">
                                                 <div class="card-heading active">
-                                                    <a data-toggle="collapse"
-                                                        data-target="#collapseOne">{{ $category->name }}</a>
+                                                    <a href="/shop/{{ $category->id }}">{{ $category->name }}</a>
                                                 </div>
 
                                             </div>
@@ -115,11 +114,14 @@
                                 <div class="col-lg-4 col-md-6">
                                     <div class="product__item">
                                         @php
-                                            $images = is_array($product->imagepath)
-                                                ? $product->imagepath
-                                                : json_decode($product->imagepath, true);
-                                            $firstImage = $images[0] ?? null;
+                                            // Properly decode the JSON string
+                                            $imagepath = is_string($product->imagepath)
+                                                ? json_decode(trim($product->imagepath, '"'), true)
+                                                : [];
+                                            $firstImage =
+                                                count($imagepath) > 0 ? str_replace('\/', '/', $imagepath[0]) : null;
                                         @endphp
+
                                         @if ($firstImage)
                                             <div class="product__item__pic set-bg"
                                                 data-setbg="{{ asset('storage/' . $firstImage) }}">

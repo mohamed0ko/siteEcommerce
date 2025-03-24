@@ -5,25 +5,31 @@
 "use strict";
 
 (function ($) {
-    /*------------------
-        Preloader
-    --------------------*/
-    /*   $(window).on("load", function () {
-        $(".loader").fadeOut();
-        $("#preloder").delay(200).fadeOut("slow");
-
-      
-            //Product filter
-       
+    $(document).ready(function () {
+        // Toggle the active class on filter items
         $(".filter__controls li").on("click", function () {
+            // Remove 'active' class from all filter items
             $(".filter__controls li").removeClass("active");
+
+            // Add 'active' class to the clicked filter item
             $(this).addClass("active");
         });
+
+        // Initialize MixItUp for the gallery filtering
         if ($(".property__gallery").length > 0) {
             var containerEl = document.querySelector(".property__gallery");
-            var mixer = mixitup(containerEl);
+
+            // Initialize MixItUp
+            var mixer = mixitup(containerEl, {
+                selectors: {
+                    target: ".col-lg-3", // Ensure you're targeting the correct element class
+                },
+                animation: {
+                    duration: 300,
+                },
+            });
         }
-    }); */
+    });
 
     /*------------------
         Background Set

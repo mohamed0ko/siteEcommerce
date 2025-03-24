@@ -10,7 +10,7 @@ class adminOrderController extends Controller
 
     public function index()
     {
-        $orders = Order::with('orderDetails')->get();
+        $orders = Order::with('orderDetails')->orderBy('created_at', 'desc')->get();;
 
         return view('backend.Order.index', compact('orders'));
     }

@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/Home', [HomeController::class, 'Homepage'])->name('dashboard');
-Route::get('/shop', [ShopeController::class, 'index'])->name('frontend.Shop');
+Route::get('/shop/{caregory?}', [ShopeController::class, 'index'])->name('frontend.Shop');
 Route::get('/product-details/{product?}', [ShopeController::class, 'show'])->name('frontend.ProductDetails');
 
 Route::middleware('admin')->group(function () {

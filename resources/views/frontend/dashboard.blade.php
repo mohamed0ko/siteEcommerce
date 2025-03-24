@@ -71,11 +71,10 @@
                 <div class="col-lg-8 col-md-8">
                     <ul class="filter__controls">
                         <li class="active" data-filter="*">All</li>
-                        <li data-filter=".women">Women’s</li>
-                        <li data-filter=".men">Men’s</li>
-                        <li data-filter=".kid">Kid’s</li>
-                        <li data-filter=".accessories">Accessories</li>
-                        <li data-filter=".cosmetic">Cosmetics</li>
+                        @foreach ($categories as $category)
+                            <li data-filter=".{{ Str::slug($category->name) }}">{{ $category->name }}</li>
+                        @endforeach
+
                     </ul>
                 </div>
             </div>
@@ -84,8 +83,9 @@
                     @php
                         $images = is_array($new->imagepath) ? $new->imagepath : json_decode($new->imagepath, true);
                         $firstImage = $images[0] ?? null;
+
                     @endphp
-                    <div class="col-lg-3 col-md-4 col-sm-6 mix women">
+                    <div class="col-lg-3 col-md-4 col-sm-6 mix {{ Str::slug($new->category->name) }} ">
                         <div class="product__item">
                             <div class="product__item__pic set-bg" data-setbg="{{ asset('storage/' . $firstImage) }}">
 
