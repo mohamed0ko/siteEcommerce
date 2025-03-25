@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="{{ asset('backend/plugins/jqvmap/jqvmap.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('backend/dist/css/adminlte.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('backend/dist/css/image.css') }}">
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="{{ asset('backend/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
     <!-- Daterange picker -->
@@ -30,6 +31,8 @@
     <link rel="stylesheet" href="{{ asset('backend/plugins/summernote/summernote-bs4.min.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
         integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOM9G1b6Dg4q7U2dY2K4G5x5P8e5zH1H5e5e5zH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
 
 </head>
 
@@ -257,7 +260,7 @@
                                 <li class="nav-item">
                                     <a href="{{ route('backend.user.index') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>User Detail</p>
+                                        <p>Users Detail</p>
 
                                     </a>
                                 </li>
@@ -285,7 +288,7 @@
                                 <li class="nav-item">
                                     <a href="{{ route('backend.Categories.create') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Categories Add</p>
+                                        <p>Category Add</p>
                                     </a>
                                 </li>
 
@@ -296,7 +299,7 @@
                                 <i class="nav-icon fa fa-palette"></i>
 
                                 <p>
-                                    Color
+                                    Colors
                                     <i class="fas fa-angle-left right"></i>
                                 </p>
                             </a>
@@ -304,7 +307,7 @@
                                 <li class="nav-item">
                                     <a href="{{ route('backend.Color.index') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Color Detail</p>
+                                        <p>Colors Detail</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -317,9 +320,10 @@
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon fa fa-product-hunt"></i>
+
+                                <i class="nav-icon bi bi-basket3-fill"></i>
                                 <p>
-                                    Product
+                                    Products
                                     <i class="fas fa-angle-left right"></i>
                                 </p>
                             </a>
@@ -341,8 +345,8 @@
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon fa fa-cart-shopping"></i>
-                                <i class="fa fa-bag-shopping"></i>
+
+                                <i class="nav-icon bi bi-bag-check-fill"></i>
 
 
                                 <p>
@@ -356,6 +360,36 @@
                                     <a href="{{ route('backend.Order.index') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Orders Detail</p>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+
+                                <i class="nav-icon  bi bi-sliders2-vertical"></i>
+
+
+
+
+                                <p>
+                                    Sliders
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+
+                                <li class="nav-item">
+                                    <a href="{{ route('backend.Slider.index') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Sliders Detail</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('backend.Slider.create') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Slider Add</p>
                                     </a>
                                 </li>
 
@@ -470,6 +504,7 @@
     <script src="{{ asset('backend/dist/js/adminlte.js') }}"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{ asset('backend/dist/js/demo.js') }}"></script>
+    <script src="{{ asset('backend/dist/js/image.js') }}"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{ asset('backend/dist/js/pages/dashboard.js') }}"></script>
 

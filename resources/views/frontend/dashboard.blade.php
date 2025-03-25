@@ -8,8 +8,7 @@
                     <div class="categories__item categories__large__item set-bg" data-setbg="img/categories/category-1.jpg">
                         <div class="categories__text">
                             <h1>Women’s fashion</h1>
-                            <p>Sitamet, consectetur adipiscing elit, sed do eiusmod tempor incidid-unt labore
-                                edolore magna aliquapendisse ultrices gravida.</p>
+                            <p>358 items</p>
                             <a href="#">Shop now</a>
                         </div>
                     </div>

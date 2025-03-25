@@ -10,6 +10,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ShopeController;
+use App\Http\Controllers\SliderController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -55,6 +56,13 @@ Route::middleware(['editor'])->group(function () {
     Route::delete('/order/{order}', [adminOrderController::class, 'destroy'])->name('backend.Order.destroy');
     Route::get('/orderPending/{id}', [adminOrderController::class, 'orderPending'])->name('backend.orderPending');
     Route::get('/orderDelivery/{id}', [adminOrderController::class, 'orderDelivery'])->name('backend.orderDelivery');
+
+    //-------Slider
+    Route::get('/slider', [SliderController::class, 'index'])->name('backend.Slider.index');
+    Route::get('/slider/create', [SliderController::class, 'create'])->name('backend.Slider.create');
+    Route::post('/slider/store', [SliderController::class, 'store'])->name('backend.Slider.store');
+    Route::post('/slider/edit/{slider}', [SliderController::class, 'edit'])->name('backend.Slider.edit');
+    Route::put('/slider/update/{slider}', [SliderController::class, 'update'])->name('backend.Slider.update');
 });
 
 Route::middleware('auth')->group(function () {
