@@ -61,7 +61,7 @@ Route::middleware(['editor'])->group(function () {
     Route::get('/slider', [SliderController::class, 'index'])->name('backend.Slider.index');
     Route::get('/slider/create', [SliderController::class, 'create'])->name('backend.Slider.create');
     Route::post('/slider/store', [SliderController::class, 'store'])->name('backend.Slider.store');
-    Route::post('/slider/edit/{slider}', [SliderController::class, 'edit'])->name('backend.Slider.edit');
+    Route::get('/slider/edit/{slider}', [SliderController::class, 'edit'])->name('backend.Slider.edit');
     Route::put('/slider/update/{slider}', [SliderController::class, 'update'])->name('backend.Slider.update');
 });
 

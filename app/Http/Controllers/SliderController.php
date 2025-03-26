@@ -64,7 +64,7 @@ class SliderController extends Controller
         Slider::create($sliderData);
 
         // Redirect back with a success message
-        return redirect()->back()->with('success', 'Gallery created successfully.');
+        return redirect()->back()->with('success', 'Slider created successfully.');
     }
 
 
@@ -72,7 +72,7 @@ class SliderController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(slider $slider)
+    public function show(Slider $slider)
     {
         //
     }
@@ -80,9 +80,9 @@ class SliderController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(slider $slider)
+    public function edit(Slider $slider)
     {
-        return view('backend.Slider.edit');
+        return view('backend.Slider.edit', compact('slider'));
     }
 
     /**
@@ -90,7 +90,39 @@ class SliderController extends Controller
      */
     public function update(Request $request, slider $slider)
     {
-        //
+        $validated = $request->validate([
+            'image1' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image2' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image3' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image4' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image5' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'title1' => 'nullable|string|max:255',
+            'title2' => 'nullable|string|max:255',
+            'title3' => 'nullable|string|max:255',
+            'title4' => 'nullable|string|max:255',
+            'title5' => 'nullable|string|max:255',
+        ]);
+
+        // Prepare an array to store file paths
+        $sliderData = [];
+
+        // Loop through each image field to store the file path
+        for ($i = 1; $i <= 5; $i++) {
+            if ($request->hasFile('image' . $i)) {
+                $sliderData['image' . $i] = $request->file('image' . $i)->store('sliderCategories', 'public');
+            }
+
+            // Also handle titles (if provided)
+            if ($request->has('title' . $i)) {
+                $sliderData['title' . $i] = $request->input('title' . $i);
+            }
+        }
+
+        // Create a new slider with the prepared data
+        $slider->update($sliderData);
+
+        // Redirect back with a success message
+        return redirect()->back()->with('success', 'Slider update successfully.');
     }
 
     /**

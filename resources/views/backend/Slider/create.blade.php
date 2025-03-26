@@ -71,7 +71,7 @@
                 </div>
             </div>
             <br />
-            <button type="submit" class="btn btn-primary">Upload Gallery</button>
+            <button type="submit" class="btn btn-primary">Create Slider</button>
         </div>
     </form>
 @endsection
