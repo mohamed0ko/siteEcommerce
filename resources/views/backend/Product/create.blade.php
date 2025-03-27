@@ -35,9 +35,6 @@
                                         <option value="{{ old('category_id', $category->id) }}">{{ $category->name }}
                                         </option>
                                     @endforeach
-
-
-
                                 </select>
                             </div>
                             {{--  <div class="form-group">

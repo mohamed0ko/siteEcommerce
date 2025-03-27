@@ -18,6 +18,8 @@
                     <button type="button" class="remove-btn" id="removeBtn1" onclick="removeImage('1')"
                         style="display: none;">×</button>
                     <input type="text" id="title1" name="title1" class="image-title" placeholder="Enter image title">
+
+
                 </div>
 
                 <div class="gig-image-item" id="imageContainer2">
@@ -30,6 +32,7 @@
                     <button type="button" class="remove-btn" id="removeBtn2" onclick="removeImage('2')"
                         style="display: none;">×</button>
                     <input type="text" id="title2" name="title2" class="image-title" placeholder="Enter image title">
+
                 </div>
 
                 <div class="gig-image-item" id="imageContainer3">
@@ -42,6 +45,7 @@
                     <button type="button" class="remove-btn" id="removeBtn3" onclick="removeImage('3')"
                         style="display: none;">×</button>
                     <input type="text" id="title3" name="title3" class="image-title" placeholder="Enter image title">
+
                 </div>
 
                 <div class="gig-image-item" id="imageContainer4">
@@ -55,6 +59,7 @@
                         style="display: none;">×</button>
                     <input type="text" id="title4" name="title4" class="image-title"
                         placeholder="Enter image title">
+
                 </div>
 
                 <div class="gig-image-item" id="imageContainer5">
@@ -68,6 +73,7 @@
                         style="display: none;">×</button>
                     <input type="text" id="title5" name="title5" class="image-title"
                         placeholder="Enter image title">
+
                 </div>
             </div>
             <br />

@@ -38,6 +38,14 @@
                                     </a>
                                     &nbsp;
 
+                                    <form action="{{ route('backend.Slider.destroy', $slider->id) }}" method="POST"
+                                        onsubmit="return confirm('Are you sure you want to delete this Product ?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-danger btn-sm" type="submit"> <i class="fas fa-trash">
+                                            </i>Delete</button>
+                                    </form>
+
                                 </td>
 
                             </tr>

@@ -63,6 +63,7 @@ Route::middleware(['editor'])->group(function () {
     Route::post('/slider/store', [SliderController::class, 'store'])->name('backend.Slider.store');
     Route::get('/slider/edit/{slider}', [SliderController::class, 'edit'])->name('backend.Slider.edit');
     Route::put('/slider/update/{slider}', [SliderController::class, 'update'])->name('backend.Slider.update');
+    Route::delete('/slider/destroy/{slider}', [SliderController::class, 'destroy'])->name('backend.Slider.destroy');
 });
 
 Route::middleware('auth')->group(function () {

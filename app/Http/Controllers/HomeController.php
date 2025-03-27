@@ -7,6 +7,7 @@ use App\Http\Support\Facades\Auth;
 use App\Models\Category;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Slider;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
 
@@ -24,11 +25,12 @@ class HomeController extends Controller
 
     public function Homepage()
     {
+        $sliders = Slider::all();
         $product = Product::with('category')->get();
         $categories = Category::with('Product')->has('Product')->get();
         $Newproduct = Product::orderBy('created_at', 'desc')->get();
 
 
-        return view('frontend.dashboard', compact('Newproduct', 'product', 'categories'));
+        return view('frontend.dashboard', compact('Newproduct', 'product', 'categories', 'sliders'));
     }
 }

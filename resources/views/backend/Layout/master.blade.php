@@ -54,27 +54,27 @@
             <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i
-                            class="fas fa-bars"></i></a>
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button">
+                        <i class="fas fa-bars"></i>
+                    </a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="/" class="nav-link">Home</a>
+                    <a href="/Home" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="#" class="nav-link">Contact</a>
                 </li>
-                <li>
+                <li class="nav-item d-none d-sm-inline-block">
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-
-                        <x-dropdown-link :href="route('logout')"
-                            onclick="event.preventDefault();
-                                this.closest('form').submit();">
+                        <button type="submit" class="nav-link btn btn-link p-0"
+                            style="border: none; background: none;">
                             {{ __('Log Out') }}
-                        </x-dropdown-link>
+                        </button>
                     </form>
                 </li>
             </ul>
+
 
 
             <!-- Right navbar links -->
@@ -119,7 +119,8 @@
                                 <div class="media-body">
                                     <h3 class="dropdown-item-title">
                                         Brad Diesel
-                                        <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
+                                        <span class="float-right text-sm text-danger"><i
+                                                class="fas fa-star"></i></span>
                                     </h3>
                                     <p class="text-sm">Call me whenever you can...</p>
                                     <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
@@ -441,6 +442,11 @@
                 @if (session('success'))
                     <div id="success-message" class="alert alert-success">
                         {{ session('success') }}
+                    </div>
+                @endif
+                @if (session('error'))
+                    <div id="success-message" class="alert alert-danger">
+                        {{ session('error') }}
                     </div>
                 @endif
                 @yield('contentAdmin')

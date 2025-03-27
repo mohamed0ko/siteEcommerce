@@ -45,6 +45,10 @@ class SliderController extends Controller
             'title5' => 'nullable|string|max:255',
         ]);
 
+        $existingSlider = Slider::first(); // If you want to check for a specific one, add `where()` conditions
+        if ($existingSlider) {
+            return redirect()->back()->with('error', 'Slider already exists.');
+        }
         // Prepare an array to store file paths
         $sliderData = [];
 
@@ -63,6 +67,7 @@ class SliderController extends Controller
         // Create a new slider with the prepared data
         Slider::create($sliderData);
 
+
         // Redirect back with a success message
         return redirect()->back()->with('success', 'Slider created successfully.');
     }
@@ -72,9 +77,10 @@ class SliderController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Slider $slider)
+    public function show()
     {
-        //
+
+        return view('frontend.dashboard', compact('sliders'));
     }
 
     /**
@@ -130,6 +136,7 @@ class SliderController extends Controller
      */
     public function destroy(slider $slider)
     {
-        //
+        $slider->delete();
+        return redirect()->back()->with('success', 'Slider delete successfully.');
     }
 }
