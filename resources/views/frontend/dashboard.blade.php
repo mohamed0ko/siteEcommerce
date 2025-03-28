@@ -10,7 +10,7 @@
                             data-setbg="{{ 'storage/' . $slider->image1 }}">
                             <div class="categories__text">
                                 <h1>{{ $slider->title1 }}</h1>
-                                <p>358 items</p>
+
                                 <a href="#">Shop now</a>
                             </div>
                         </div>
@@ -20,8 +20,8 @@
                             <div class="col-lg-6 col-md-6 col-sm-6 p-0">
                                 <div class="categories__item set-bg" data-setbg="{{ 'storage/' . $slider->image2 }}">
                                     <div class="categories__text">
-                                        <h4>{{ $slider->title1 }}</h4>
-                                        <p>358 items</p>
+                                        <h4>{{ $slider->title2 }}</h4>
+
                                         <a href="#">Shop now</a>
                                     </div>
                                 </div>
@@ -29,8 +29,8 @@
                             <div class="col-lg-6 col-md-6 col-sm-6 p-0">
                                 <div class="categories__item set-bg" data-setbg="{{ 'storage/' . $slider->image3 }}">
                                     <div class="categories__text">
-                                        <h4>{{ $slider->title1 }}</h4>
-                                        <p>273 items</p>
+                                        <h4>{{ $slider->title3 }}</h4>
+
                                         <a href="#">Shop now</a>
                                     </div>
                                 </div>
@@ -38,8 +38,8 @@
                             <div class="col-lg-6 col-md-6 col-sm-6 p-0">
                                 <div class="categories__item set-bg" data-setbg="{{ 'storage/' . $slider->image4 }}">
                                     <div class="categories__text">
-                                        <h4>{{ $slider->title1 }}</h4>
-                                        <p>159 items</p>
+                                        <h4>{{ $slider->title4 }}</h4>
+
                                         <a href="#">Shop now</a>
                                     </div>
                                 </div>
@@ -47,8 +47,8 @@
                             <div class="col-lg-6 col-md-6 col-sm-6 p-0">
                                 <div class="categories__item set-bg" data-setbg="{{ 'storage/' . $slider->image5 }}">
                                     <div class="categories__text">
-                                        <h4>{{ $slider->title1 }}</h4>
-                                        <p>792 items</p>
+                                        <h4>{{ $slider->title5 }}</h4>
+
                                         <a href="#">Shop now</a>
                                     </div>
                                 </div>
@@ -112,7 +112,8 @@
                                 @endif
                             </div>
                             <div class="product__item__text">
-                                <h6><a href="#">{{ $new->name }}</a></h6>
+                                <h6><a href="{{ route('frontend.ProductDetails', $new->id) }}">{{ $new->name }}</a>
+                                </h6>
                                 <div class="rating">
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
