@@ -7,6 +7,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ContactInfoController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -71,6 +72,15 @@ Route::middleware(['editor'])->group(function () {
     Route::get('/slider/edit/{slider}', [SliderController::class, 'edit'])->name('backend.Slider.edit');
     Route::put('/slider/update/{slider}', [SliderController::class, 'update'])->name('backend.Slider.update');
     Route::delete('/slider/destroy/{slider}', [SliderController::class, 'destroy'])->name('backend.Slider.destroy');
+
+    //-------Contact info
+
+    Route::get('/Contact_ifo', [ContactInfoController::class, 'index'])->name('backend.Info.index');
+    Route::get('/Contact_ifo/create', [ContactInfoController::class, 'create'])->name('backend.Info.create');
+    Route::post('/Contact_ifo/store', [ContactInfoController::class, 'store'])->name('backend.Info.store');
+    Route::get('/Contact_ifo/edit/{contact_info}', [ContactInfoController::class, 'edit'])->name('backend.Info.edit');
+    Route::put('/Contact_ifo/update/{contact_info}', [ContactInfoController::class, 'update'])->name('backend.Info.update');
+    Route::delete('/Contact_ifo/destroy/{contact_info}', [ContactInfoController::class, 'destroy'])->name('backend.Info.destroy');
 });
 
 Route::middleware('auth')->group(function () {

@@ -12,7 +12,8 @@ class ContactInfoController extends Controller
      */
     public function index()
     {
-        //
+        $Contact_info = Contact_info::all();
+        return view('backend.ContactInfo.index', compact('Contact_info'));
     }
 
     /**
@@ -20,7 +21,7 @@ class ContactInfoController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.ContactInfo.create');
     }
 
     /**
@@ -28,7 +29,24 @@ class ContactInfoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validation = $request->validate([
+            'name_webSite' => 'required|string|max:255',
+            'email' => 'required|email|max:100',
+            'phone' => 'required|string|max:12',
+            'phone2' => 'required|string|max:12',
+            'address' => 'required|string|max:255',
+            'support' => 'required|email|max:100',
+            'contact__map' => 'required|string|max:255',
+
+
+        ]);
+        $existingSlider = Contact_info::first();
+        if ($existingSlider) {
+            return redirect()->back()->with('error', 'info already exists.');
+        }
+
+        Contact_info::create($validation);
+        return redirect()->back()->with('success', 'info create successfully');
     }
 
     /**

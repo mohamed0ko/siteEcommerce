@@ -272,6 +272,33 @@
 
                             </ul>
                         </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon bi bi-person-lines-fill"></i>
+                                <p>
+                                    Contact Info
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+
+                                <li class="nav-item">
+                                    <a href="{{ route('backend.Info.index') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p> Contact Info Detail</p>
+
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('backend.Info.create') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Contact Info Add</p>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
+
 
                         <li class="nav-item">
                             <a href="" class="nav-link">

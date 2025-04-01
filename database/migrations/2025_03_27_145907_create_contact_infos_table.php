@@ -16,8 +16,10 @@ return new class extends Migration
             $table->string('name_webSite');
             $table->string('email');
             $table->string('phone');
-            $table->string('adresse');
+            $table->string('phone2')->nullable();
+            $table->string('address');
             $table->string('support');
+            $table->string('contact__map')->nullable();
             $table->timestamps();
         });
     }
