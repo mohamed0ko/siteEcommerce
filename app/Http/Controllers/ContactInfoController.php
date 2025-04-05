@@ -52,10 +52,7 @@ class ContactInfoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Contact_info $contact_info)
-    {
-        //
-    }
+    public function show(Contact_info $contact_info) {}
 
     /**
      * Show the form for editing the specified resource.

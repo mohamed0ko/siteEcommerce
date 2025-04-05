@@ -91,7 +91,9 @@
                     <div class="col-lg-3 col-md-4 col-sm-6 mix {{ Str::slug($new->category->name) }} ">
                         <div class="product__item">
                             <div class="product__item__pic set-bg" data-setbg="{{ asset('storage/' . $firstImage) }}">
-
+                                @if ($new->discount_price)
+                                    <div class="label sale">Sale</div>
+                                @endif
                                 @if ($new->quantity == 0)
                                     <div class="label stockout">
                                         out of stock

@@ -9,13 +9,16 @@ class Product extends Model
     protected $fillable = [
         'name',
         'description',
+        'short_description',
         'size',
         'imagepath',
         'quantity',
         'price',
         'discount_price',
-        'status',
+        'is_trending',
+        'shipping',
         'category_id',
+        'brand_id',
 
 
     ];
@@ -28,6 +31,10 @@ class Product extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
     }
     public function products()
     {

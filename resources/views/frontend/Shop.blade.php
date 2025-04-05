@@ -125,7 +125,19 @@
                                         @if ($firstImage)
                                             <div class="product__item__pic set-bg" {{-- data-setbg="{{ asset('storage/' . $firstImage) }}" --}}>
                                                 <img src="{{ asset('storage/' . $firstImage) }}" alt="">
-
+                                                @if ($product->discount_price)
+                                                    <div class="label sale">Sale</div>
+                                                @endif
+                                                @if ($product->quantity == 0)
+                                                    <div class="label stockout">
+                                                        out of stock
+                                                    </div>
+                                                @endif
+                                                @if ($product->created_at->toDateString() == now()->toDateString())
+                                                    <div class="label new">
+                                                        New
+                                                    </div>
+                                                @endif
                                                 <ul class="product__hover">
                                                     <li><a href="{{ asset('storage/' . $firstImage) }}"
                                                             class="image-popup"><span class="arrow_expand"></span></a></li>

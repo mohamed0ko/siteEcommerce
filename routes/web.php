@@ -3,6 +3,7 @@
 use App\Http\Controllers\adminOrder;
 use App\Http\Controllers\adminOrderController;
 use App\Http\Controllers\adminUser;
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ColorController;
@@ -36,12 +37,23 @@ Route::middleware('admin')->group(function () {
 });
 Route::middleware(['editor'])->group(function () {
     Route::get('/Admin', [HomeController::class, 'Adminpage'])->name('backend.index');
+    // Category
     Route::get('/categories', [CategoryController::class, 'index'])->name('backend.Categories.index');
     Route::post('/categories/store', [CategoryController::class, 'store'])->name('backend.Categories.store');
     Route::get('/categories/create', [CategoryController::class, 'create'])->name('backend.Categories.create');
     Route::get('/categories/edit/{category}', [CategoryController::class, 'edit'])->name('backend.Categories.edit');
     Route::put('/categories/update/{category}', [CategoryController::class, 'update'])->name('backend.Categories.update');
     Route::delete('/categories/destroy/{category}', [CategoryController::class, 'destroy'])->name('backend.Categories.destroy');
+
+    //-------Brand
+    Route::get('/brand', [BrandController::class, 'index'])->name('backend.Brand.index');
+    Route::post('/brand/store', [BrandController::class, 'store'])->name('backend.Brand.store');
+    Route::get('/brand/create', [BrandController::class, 'create'])->name('backend.Brand.create');
+    Route::get('/brand/edit/{brand}', [BrandController::class, 'edit'])->name('backend.Brand.edit');
+    Route::put('/brand/update/{brand}', [BrandController::class, 'update'])->name('backend.Brand.update');
+    Route::delete('/brand/destroy/{brand}', [BrandController::class, 'destroy'])->name('backend.Brand.destroy');
+
+
     //-------color
     Route::get('/color', [ColorController::class, 'index'])->name('backend.Color.index');
     Route::post('/color/store', [ColorController::class, 'store'])->name('backend.Color.store');

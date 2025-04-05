@@ -76,7 +76,7 @@
                                 </td>
                                 <td class="project_progress">
                                     <span class="badge badge-primary"> ${{ $product->price }}</span>
-                                    <span class="badge badge-primary"> ${{ $product->category->name }}</span>
+
                                 </td>
                                 <td class="project_progress">
                                     <span class="badge badge-primary text-center"> {{ $product->quantity }}</span>
@@ -85,8 +85,8 @@
 
                                 <td class="project-state">
 
-                                    <span class="badge badge-{{ $product->status ? 'success' : 'danger' }}">
-                                        {{ $product->status ? 'Enable' : 'Disable' }}</span>
+                                    <span class="badge badge-{{ $product->is_trending ? 'success' : 'danger' }}">
+                                        {{ $product->is_trending ? 'is_trending' : 'no_trending' }}</span>
 
 
                                 </td>
@@ -102,8 +102,7 @@
                                         View
                                     </a>
                                     &nbsp;
-                                    <a class="btn btn-info btn-sm"
-                                        href="{{ route('backend.Product.edit', $product->id) }}">
+                                    <a class="btn btn-info btn-sm" href="{{ route('backend.Product.edit', $product->id) }}">
                                         <i class="fas fa-pencil-alt">
                                         </i>
                                         Edit

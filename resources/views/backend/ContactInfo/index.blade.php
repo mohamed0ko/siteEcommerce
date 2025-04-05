@@ -23,7 +23,7 @@
                         <thead>
                             <tr>
                                 <th style="width: 1%">
-                                    ID
+                                    Location
                                 </th>
                                 <th style="width: 25%">
                                     Name
@@ -50,8 +50,13 @@
                         </thead>
                         <tbody>
                             <tr>
+
                                 <td>
-                                    {{ $Contact->id }}
+                                    <a href=" {{ $Contact->contact__map }}" target="_blank">click here</a>
+                                    <p> to view the map
+                                        directly.</p>
+
+
                                 </td>
                                 <td>
                                     <a>

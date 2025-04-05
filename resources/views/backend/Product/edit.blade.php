@@ -42,6 +42,21 @@
 
                             </div>
                             <div class="form-group">
+                                <label for="category_id">Category</label>
+                                <select id="category_id" name="category_id" class="form-control custom-select">
+                                    <option disabled {{ is_null($product->brand_id) ? 'selected' : '' }}>Select one
+                                    </option>
+                                    @foreach ($brands as $brand)
+                                        <option value="{{ $brand_id->id }}"
+                                            {{ old('category_id', $product->brand_id) == $brand->id ? 'selected' : '' }}>
+                                            {{ $brand->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+
+                            </div>
+
+                            <div class="form-group">
                                 <label>Color</label>
                                 @foreach ($colors as $color)
                                     <div>
@@ -65,6 +80,24 @@
                                         Disable</option>
                                 </select>
                             </div>
+
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <div class="col-md-6">
+                    <div class="card card-secondary">
+                        <div class="card-header">
+                            <h3 class="card-title"></h3>
+
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
                             <div class="form-group">
                                 <label for="size">Sizes</label>
                                 <div id="size-container">
@@ -93,25 +126,6 @@
                                 </div>
                                 <button type="button" class="btn btn-success add-size">+</button>
                             </div>
-
-
-                        </div>
-                        <!-- /.card-body -->
-                    </div>
-                    <!-- /.card -->
-                </div>
-                <div class="col-md-6">
-                    <div class="card card-secondary">
-                        <div class="card-header">
-                            <h3 class="card-title"></h3>
-
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body">
                             <div class="form-group">
                                 <label for="quantity">Quantity</label>
                                 <input type="number" id="quantity" name="quantity"

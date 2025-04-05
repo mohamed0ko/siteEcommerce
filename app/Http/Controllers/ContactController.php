@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\ContactFormMail;
 use App\Models\Contact;
+use App\Models\Contact_info;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -14,7 +15,8 @@ class ContactController extends Controller
      */
     public function index()
     {
-        return view('frontend.Contact');
+        $ContactInfo = Contact_info::all();
+        return view('frontend.Contact', compact('ContactInfo'));
     }
 
     /**
@@ -43,7 +45,7 @@ class ContactController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Contact $contact)
+    public function show()
     {
         //
     }
@@ -51,7 +53,7 @@ class ContactController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Contact $contact)
+    public function edit()
     {
         //
     }
@@ -59,7 +61,7 @@ class ContactController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Contact $contact)
+    public function update()
     {
         //
     }
@@ -67,7 +69,7 @@ class ContactController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Contact $contact)
+    public function destroy()
     {
         //
     }

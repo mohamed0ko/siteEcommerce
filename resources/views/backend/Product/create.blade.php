@@ -28,6 +28,10 @@
                                 <textarea id="description" name="description" class="form-control" rows="4">{{ old('description') }}</textarea>
                             </div>
                             <div class="form-group">
+                                <label for="short_description">Short Description</label>
+                                <textarea id="short_description" name="short_description" class="form-control" rows="4">{{ old('short_description') }}</textarea>
+                            </div>
+                            <div class="form-group">
                                 <label for="category_id">Category</label>
                                 <select id="category_id" name="category_id" class="form-control custom-select">
                                     <option selected disabled>Select one</option>
@@ -37,16 +41,17 @@
                                     @endforeach
                                 </select>
                             </div>
-                            {{--  <div class="form-group">
-                                <label for="color_id">Color</label>
-                                <select id="color_id" name="color_id[]" multiple class="form-control custom-select">
+                            <div class="form-group">
+                                <label for="brand_id">Brand</label>
+                                <select id="brand_id" name="brand_id" class="form-control custom-select">
                                     <option selected disabled>Select one</option>
-                                    @foreach ($colors as $color)
-                                        <option value="{{ old('color_id', $color->id) }}">{{ $color->name }}</option>
+                                    @foreach ($brands as $brand)
+                                        <option value="{{ old('brand_id', $brand->id) }}">{{ $brand->name }}
+                                        </option>
                                     @endforeach
+                                </select>
+                            </div>
 
-
-                                </select>  </div> --}}
                             <div class="form-group">
                                 <label>Color</label>
                                 @foreach ($colors as $color)
@@ -59,30 +64,17 @@
                                     </div>
                                 @endforeach
                             </div>
-
-
-
                             <div class="form-group">
-                                <label for="status">Status</label>
-                                <select id="status" name="status" class="form-control custom-select">
+                                <label for="status">Trending</label>
+                                <select id="is_trending" name="is_trending" class="form-control custom-select">
                                     <option selected disabled>Select one</option>
                                     <option value="1"
-                                        {{ old('status', $product->status ?? '') == 1 ? 'selected' : '' }}>
-                                        Enable</option>
+                                        {{ old('is_trending', $product->is_trending ?? '') == 1 ? 'selected' : '' }}>
+                                        is_trending</option>
                                     <option value="0"
-                                        {{ old('status', $product->status ?? '') == 0 ? 'selected' : '' }}>
-                                        Disable</option>
+                                        {{ old('is_trending', $product->is_trending ?? '') == 0 ? 'selected' : '' }}>
+                                        no_trending</option>
                                 </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="size">Sizes</label>
-                                <div id="size-container">
-                                    <div class="input-group mb-2">
-                                        <input type="text" name="size[]" class="form-control" placeholder="Enter size">
-                                        <button type="button" class="btn btn-success add-size">+</button>
-                                    </div>
-                                </div>
                             </div>
 
                         </div>
@@ -92,6 +84,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="card card-secondary">
+
                         <div class="card-header">
                             <h3 class="card-title"></h3>
 
@@ -102,6 +95,15 @@
                             </div>
                         </div>
                         <div class="card-body">
+                            <div class="form-group">
+                                <label for="size">Sizes</label>
+                                <div id="size-container">
+                                    <div class="input-group mb-2">
+                                        <input type="text" name="size[]" class="form-control" placeholder="Enter size">
+                                        <button type="button" class="btn btn-success add-size">+</button>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label for="quantity">Quantity</label>
                                 <input type="number" id="quantity" name="quantity" value="{{ old('quantity') }}"
@@ -116,6 +118,11 @@
                                 <label for="discount_price">Discount Price</label>
                                 <input type="text" id="discount_price" name="discount_price"
                                     value="{{ old('discount_price') }}" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="shipping"> Shipping</label>
+                                <input type="text" id="shipping" name="shipping" value="{{ old('shipping') }}"
+                                    class="form-control">
                             </div>
 
                             <div class="form-group">

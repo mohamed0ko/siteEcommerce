@@ -25,14 +25,16 @@ class ProductRequest extends FormRequest
         $rules = [
             'name' => 'required|string|max:255,min:2',
             'description' => 'required|string|max:255,min:2',
-            // Ensure size is an array
-            'size' => 'nullable|array', // Validate size as an array
+            'short_description' => 'nullable|string|max:255,min:2',
+            'shipping' => 'nullable|string|max:255,min:2',
+            'size' => 'nullable|array',
             'size.*' => 'nullable|string|max:10',
             'quantity' => 'required|integer|min:0',
             'price' => 'required|numeric|min:0',
             'discount_price' => 'nullable|numeric|lt:price',
-            'status' => 'string',
+            'is_trending' => 'string',
             'category_id' => 'required|exists:categories,id',
+            'brand_id' => 'required|exists:brands,id',
             'color_id' => 'nullable|array',
             'color_id.*' => 'exists:colors,id',
         ];

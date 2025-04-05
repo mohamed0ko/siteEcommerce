@@ -327,6 +327,32 @@
                             </ul>
                         </li>
                         <li class="nav-item">
+                            <a href="" class="nav-link">
+
+                                <i class="nav-icon fa fa-layer-group"></i>
+                                <p>
+                                    Brand
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+
+                                <li class="nav-item">
+                                    <a href="{{ route('backend.Brand.index') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Brand Detail</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('backend.Brand.create') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Brand Add</p>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
+                        <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fa fa-palette"></i>
 

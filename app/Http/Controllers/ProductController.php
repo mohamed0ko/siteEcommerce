@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductRequest;
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Color;
 use App\Models\Product;
@@ -30,10 +31,11 @@ class ProductController extends Controller
     {
         $categoties = Category::all();
         $colors = Color::all();
+        $brands = Brand::all();
 
 
 
-        return view('backend.Product.create', compact('categoties', 'colors'));
+        return view('backend.Product.create', compact('categoties', 'colors', 'brands'));
     }
     public function store(ProductRequest $request)
     {
@@ -59,14 +61,15 @@ class ProductController extends Controller
         }
 
 
-        return redirect()->back()->with('success', 'Product created successfully with images and sizes.');
+        return redirect()->back()->with('success', 'Product created successfully.');
     }
 
     public function edit(Product $product)
     {
         $categories = Category::all();
         $colors = Color::all();
-        return view('backend.Product.edit', compact('product', 'categories', 'colors'));
+        $brands = Brand::all();
+        return view('backend.Product.edit', compact('product', 'categories', 'colors', 'brands'));
     }
 
     public function update(ProductRequest $request, Product $product)
