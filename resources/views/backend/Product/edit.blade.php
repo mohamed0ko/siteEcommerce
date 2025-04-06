@@ -28,6 +28,10 @@
                                 <textarea id="description" name="description" class="form-control" rows="4">{{ old('description', $product->description) }}</textarea>
                             </div>
                             <div class="form-group">
+                                <label for="short_description">Short Description</label>
+                                <textarea id="short_description" name="short_description" class="form-control" rows="4">{{ old('short_description', $product->short_description) }}</textarea>
+                            </div>
+                            <div class="form-group">
                                 <label for="category_id">Category</label>
                                 <select id="category_id" name="category_id" class="form-control custom-select">
                                     <option disabled {{ is_null($product->category_id) ? 'selected' : '' }}>Select one
@@ -42,13 +46,13 @@
 
                             </div>
                             <div class="form-group">
-                                <label for="category_id">Category</label>
-                                <select id="category_id" name="category_id" class="form-control custom-select">
+                                <label for="brand_id">Brand</label>
+                                <select id="brand_id" name="brand_id" class="form-control custom-select">
                                     <option disabled {{ is_null($product->brand_id) ? 'selected' : '' }}>Select one
                                     </option>
                                     @foreach ($brands as $brand)
-                                        <option value="{{ $brand_id->id }}"
-                                            {{ old('category_id', $product->brand_id) == $brand->id ? 'selected' : '' }}>
+                                        <option value="{{ $brand->id }}"
+                                            {{ old('brand_id', $product->brand_id) == $brand->id ? 'selected' : '' }}>
                                             {{ $brand->name }}
                                         </option>
                                     @endforeach
@@ -69,15 +73,15 @@
                                 @endforeach
                             </div>
                             <div class="form-group">
-                                <label for="status">Status</label>
-                                <select id="status" name="status" class="form-control custom-select">
+                                <label for="status">Trending</label>
+                                <select id="is_trending" name="is_trending" class="form-control custom-select">
                                     <option selected disabled>Select one</option>
                                     <option value="1"
-                                        {{ old('status', $product->status ?? '') == 1 ? 'selected' : '' }}>
-                                        Enable</option>
+                                        {{ old('is_trending', $product->is_trending ?? '') == 1 ? 'selected' : '' }}>
+                                        is_trending</option>
                                     <option value="0"
-                                        {{ old('status', $product->status ?? '') == 0 ? 'selected' : '' }}>
-                                        Disable</option>
+                                        {{ old('is_trending', $product->is_trending ?? '') == 0 ? 'selected' : '' }}>
+                                        no_trending</option>
                                 </select>
                             </div>
 
@@ -142,6 +146,11 @@
                                 <label for="discount_price">Discount Price</label>
                                 <input type="text" id="discount_price" name="discount_price"
                                     value="{{ old('discount_price', $product->discount_price) }}" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="shipping"> Shipping</label>
+                                <input type="text" id="shipping" name="shipping"
+                                    value="{{ old('shipping', $product->shipping) }}" class="form-control">
                             </div>
 
                             <div class="form-group">

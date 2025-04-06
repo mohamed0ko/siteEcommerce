@@ -13,6 +13,7 @@ class OrderDetails extends Model
         'quantityCart',
         'price',
         'color',
+        'shipping',
         'imagepath',
         'order_id',
     ];

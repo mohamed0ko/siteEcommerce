@@ -110,15 +110,18 @@
                                     <table class="table">
                                         <tr>
                                             <th style="width:50%">Subtotal:</th>
-                                            <td>$250.30</td>
+                                            <td>${{ $subtotal }}</td>
                                         </tr>
-                                        <tr>
-                                            <th>Tax (9.3%)</th>
-                                            <td>$10.34</td>
-                                        </tr>
+
                                         <tr>
                                             <th>Shipping:</th>
-                                            <td>$5.80</td>
+                                            <td>
+                                                @if ($shipping = 0)
+                                                    Free Shipping
+                                                @else
+                                                    ${{ $detail->shipping }}
+                                                @endif
+                                            </td>
                                         </tr>
                                         <tr>
                                             <th>Total:</th>

@@ -20,11 +20,17 @@ class adminOrderController extends Controller
 
 
         $order->load('orderDetails.color');
-
-        $total = $order->orderDetails->sum(function ($s) {
-            return $s->product->price * $s->quantityCart;
+        $shipping = $order->orderDetails->sum(function ($cart) {
+            return is_numeric($cart->product->shipping) ? $cart->product->shipping : 0;
         });
-        return view('backend.Order.show', compact('order', 'total'));
+
+        $subtotal = $order->orderDetails->sum(function ($s) {
+            return $s->price * $s->quantityCart;
+        });
+
+        $total = $subtotal + $shipping;
+
+        return view('backend.Order.show', compact('order', 'total', 'shipping', 'subtotal'));
     }
 
     public function orderDelivery($id)

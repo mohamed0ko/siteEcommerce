@@ -84,8 +84,7 @@
                             </div>
 
 
-                            <p>Nemo enim ipsam voluptatem quia aspernatur aut odit aut loret fugit, sed quia consequuntur
-                                magni lores eos qui ratione voluptatem sequi nesciunt.</p>
+                            <p>{{ $product->short_description }}</p>
                             <div class="product__details__button">
 
                                 <div class="quantity">
@@ -173,7 +172,14 @@
 
                                     <li>
                                         <span>Promotions:</span>
-                                        <p>Free shipping</p>
+                                        <p>
+                                            @if (is_numeric($product->shipping))
+                                                ${{ number_format($product->shipping, 2) }}
+                                            @else
+                                                Free Chipping
+                                            @endif
+                                        </p>
+
                                     </li>
                                 </ul>
                             </div>

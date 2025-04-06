@@ -17,10 +17,16 @@ class CartController extends Controller
         $userId = Auth::id();
         $cartProduct = Cart::where('user_id', $userId)->with('product')->get();
 
-        $total = $cartProduct->sum(function ($cart) {
-            return $cart->product->discount_price * $cart->quantityCart;
+        $subtotal = $cartProduct->sum(function ($cart) {
+            $price = $cart->product->discount_price > 0 ? $cart->product->discount_price : $cart->product->price;
+            return $price * $cart->quantityCart;
         });
-        return view('frontend.AddCart', compact('cartProduct', 'total'));
+
+        $shipping = $cartProduct->sum(function ($cart) {
+            return is_numeric($cart->product->shipping) ? $cart->product->shipping : 0;
+        });
+        $total = $subtotal + $shipping;
+        return view('frontend.AddCart', compact('cartProduct', 'total', 'shipping', 'subtotal'));
     }
 
 
@@ -59,18 +65,18 @@ class CartController extends Controller
             $newCart->product_id = $product->id;
             $newCart->name = $product->name;
             $newCart->imagepath = $product->imagepath;
-
             $newCart->quantityCart = $request->quantityCart;
             $newCart->color = $request->color;
             $newCart->size = $request->size;
-
+            $newCart->shipping = $product->shipping ?? 0;
             if ($product->discount_price > 0) {
                 $newCart->price = $product->discount_price;
             } else {
                 $newCart->price = $product->price;
             }
-
             $newCart->save();
+
+
 
             return redirect()->back()->with('success', 'Product add to cart');
         }
@@ -88,12 +94,28 @@ class CartController extends Controller
     public function checkout()
     {
         $userId = Auth::id();
+
         $cartProduct = Cart::where('user_id', $userId)->with('product')->get();
-        $total = $cartProduct->sum(function ($cart) {
-            return $cart->product->discount_price * $cart->quantityCart;
+
+        // Subtotal (without shipping)
+        $subtotal = $cartProduct->sum(function ($cart) {
+            $price = $cart->product->discount_price > 0 ? $cart->product->discount_price : $cart->product->price;
+            return $price * $cart->quantityCart;
         });
-        return view('frontend.Checkout', compact('cartProduct', 'total'));
+
+
+        // Shipping total
+        $shipping = $cartProduct->sum(function ($cart) {
+            return is_numeric($cart->product->shipping) ? $cart->product->shipping : 0;
+        });
+
+        // Total = subtotal + shipping
+        $total = $subtotal + $shipping;
+
+        return view('frontend.Checkout', compact('cartProduct', 'subtotal', 'shipping', 'total'));
     }
+
+
 
     public function updateCartAll(Request $request)
     {
@@ -149,6 +171,7 @@ class CartController extends Controller
                 'product_id' => $cart->product_id,
                 'name' => $cart->name,
                 'size' => $cart->size,
+                'shipping' => $cart->shipping,
                 'quantityCart' => $cart->quantityCart,
                 'price' => $cart->price,
                 'color' => $cart->color,

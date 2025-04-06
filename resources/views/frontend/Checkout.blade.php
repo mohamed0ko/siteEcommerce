@@ -102,15 +102,21 @@
                                     @foreach ($cartProduct as $cart)
                                         <li>
                                             <span class="top__text">{{ $cart->product->name }}</span>
-                                            <span
-                                                class="top__text__right">${{ $cart->product->discount_price * $cart->quantityCart }}</span>
+                                            <span class="top__text__right">
+                                                @if ($cart->product->discount_price)
+                                                    ${{ $cart->product->discount_price * $cart->quantityCart }}
+                                                @else
+                                                    ${{ $cart->product->price * $cart->quantityCart }}
+                                                @endif
+                                            </span>
                                         </li>
                                     @endforeach
                                 </ul>
                             </div>
                             <div class="checkout__order__total">
                                 <ul>
-                                    <li>Subtotal <span>${{ $total }}</span></li>
+                                    <li>Subtotal <span>${{ $subtotal }}</span></li>
+                                    <li>Shipping <span>${{ $shipping }}</span></li>
                                     <li>Total <span>${{ $total }}</span></li>
                                 </ul>
                             </div>

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('product_id');
             $table->string('name');
+            $table->decimal('shipping', 8, 2)->default(0);
             $table->string('size')->nullable();
             $table->integer('quantityCart');
             $table->decimal('price');
