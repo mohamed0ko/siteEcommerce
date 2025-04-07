@@ -186,54 +186,40 @@
                         <div class="section-title">
                             <h4>Hot Trend</h4>
                         </div>
-                        <div class="trend__item">
-                            <div class="trend__item__pic">
-                                <img src="img/trend/ht-1.jpg" alt="">
-                            </div>
-                            <div class="trend__item__text">
-                                <h6>Chain bucket bag</h6>
-                                <div class="rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
+                        @foreach ($hotTrends as $trand)
+                            <div class="trend__item">
+                                <div class="trend__item__pic">
+                                    @php
+                                        $images = is_array($trand->imagepath)
+                                            ? $trand->imagepath
+                                            : json_decode($trand->imagepath, true);
+                                        $firstImage = $images[0] ?? null;
+
+                                    @endphp
+                                    <img src="{{ asset('storage/' . $firstImage) }}" width="90px" height="90px"
+                                        alt="">
                                 </div>
-                                <div class="product__price">$ 59.0</div>
-                            </div>
-                        </div>
-                        <div class="trend__item">
-                            <div class="trend__item__pic">
-                                <img src="img/trend/ht-2.jpg" alt="">
-                            </div>
-                            <div class="trend__item__text">
-                                <h6>Pendant earrings</h6>
-                                <div class="rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
+                                <div class="trend__item__text">
+                                    <h6>{{ $trand->name }}</h6>
+                                    <div class="rating">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    </div>
+                                    <div class="product__price">
+                                        @if ($trand->discount_price and $trand->price)
+                                            ${{ $trand->discount_price }}
+                                            <span>${{ $trand->price }}</span>
+                                        @else
+                                            $ {{ $trand->price }}
+                                        @endif
+                                    </div>
                                 </div>
-                                <div class="product__price">$ 59.0</div>
                             </div>
-                        </div>
-                        <div class="trend__item">
-                            <div class="trend__item__pic">
-                                <img src="img/trend/ht-3.jpg" alt="">
-                            </div>
-                            <div class="trend__item__text">
-                                <h6>Cotton T-Shirt</h6>
-                                <div class="rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                                <div class="product__price">$ 59.0</div>
-                            </div>
-                        </div>
+                        @endforeach
+
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6">
@@ -241,54 +227,41 @@
                         <div class="section-title">
                             <h4>Best seller</h4>
                         </div>
-                        <div class="trend__item">
-                            <div class="trend__item__pic">
-                                <img src="img/trend/bs-1.jpg" alt="">
-                            </div>
-                            <div class="trend__item__text">
-                                <h6>Cotton T-Shirt</h6>
-                                <div class="rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
+                        @foreach ($BestSeller as $best)
+                            <div class="trend__item">
+                                <div class="trend__item__pic">
+                                    @php
+                                        $images = is_array($best->imagepath)
+                                            ? $best->imagepath
+                                            : json_decode($best->imagepath, true);
+                                        $firstImage = $images[0] ?? null;
+
+                                    @endphp
+                                    <img src="{{ asset('storage/' . $firstImage) }}" width="90px" height="90px"
+                                        alt="">
                                 </div>
-                                <div class="product__price">$ 59.0</div>
-                            </div>
-                        </div>
-                        <div class="trend__item">
-                            <div class="trend__item__pic">
-                                <img src="img/trend/bs-2.jpg" alt="">
-                            </div>
-                            <div class="trend__item__text">
-                                <h6>Zip-pockets pebbled tote <br />briefcase</h6>
-                                <div class="rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
+                                <div class="trend__item__text">
+                                    <h6>{{ $best->name }}</h6>
+                                    <div class="rating">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    </div>
+                                    <div class="product__price">
+                                        @if ($best->discount_price and $best->price)
+                                            ${{ $best->discount_price }}
+                                            <span>${{ $best->price }}</span>
+                                        @else
+                                            $ {{ $best->price }}
+                                        @endif
+                                    </div>
                                 </div>
-                                <div class="product__price">$ 59.0</div>
                             </div>
-                        </div>
-                        <div class="trend__item">
-                            <div class="trend__item__pic">
-                                <img src="img/trend/bs-3.jpg" alt="">
-                            </div>
-                            <div class="trend__item__text">
-                                <h6>Round leather bag</h6>
-                                <div class="rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                                <div class="product__price">$ 59.0</div>
-                            </div>
-                        </div>
+                        @endforeach
+
+
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6">

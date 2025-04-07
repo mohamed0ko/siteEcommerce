@@ -2,7 +2,6 @@
 @section('content')
 
     <!-- Breadcrumb Begin -->
-
     <div class="breadcrumb-option">
         <div class="container">
             <div class="row">
@@ -63,15 +62,15 @@
                     <form action="{{ route('frontend.addToCart', $product->id) }}" method="post">
                         @csrf
                         <div class="product__details__text">
-                            <h3>{{ $product->name }} {{-- <span>Brand: SKMEIMore Men Watches from SKMEI</span> --}}</h3>
-                            {{--   <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <span>( 138 reviews )</span>
-                        </div> --}}
+                            <h3>{{ $product->name }} <span>Brand: {{ $product->brand->name }}</span> </h3>
+                            {{--    <div class="rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <span>( 138 reviews )</span>
+                            </div> --}}
                             <div class="product__details__price">
                                 @if ($product->discount_price)
                                     $ {{ $product->discount_price }}
@@ -255,7 +254,19 @@
                             @if ($firstImage)
                                 <div class="product__item__pic set-bg"
                                     style="background-image: url('{{ asset('storage/' . $firstImage) }}');">
-                                    <div class="label new">New</div>
+                                    @if ($item->discount_price)
+                                        <div class="label sale" style="padding: 4px 8px;">Sale</div>
+                                    @endif
+                                    @if ($item->quantity == 0)
+                                        <div class="label stockout">
+                                            out of stock
+                                        </div>
+                                    @endif
+                                    @if ($item->created_at->toDateString() == now()->toDateString())
+                                        <div class="label new">
+                                            New
+                                        </div>
+                                    @endif
                                     <ul class="product__hover">
                                         <li><a href="{{ asset('storage/' . $firstImage) }}" class="image-popup"><span
                                                     class="arrow_expand"></span></a></li>
@@ -277,7 +288,14 @@
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
                                 </div>
-                                <div class="product__price">$ {{ $item->price }}</div>
+                                <div class="product__price">
+                                    @if ($item->discount_price and $item->price)
+                                        ${{ $product->discount_price }}
+                                        <span>${{ $item->price }}</span>
+                                    @else
+                                        $ {{ $item->price }}
+                                    @endif
+                                </div>
                             </div>
                         </div>
                     </div>

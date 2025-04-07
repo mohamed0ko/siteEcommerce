@@ -1174,17 +1174,20 @@ ol {
     display: inline-block;
     padding: 2px 8px;
     text-transform: uppercase;
+}
+
+.product__item__pic .label.new {
+    background: #36a300;
     position: absolute;
     left: 10px;
     top: 10px;
 }
 
-.product__item__pic .label.new {
-    background: #36a300;
-}
-
 .product__item__pic .label.stockout {
     background: #111111;
+    position: absolute;
+    left: 10px;
+    top: 10px;
 }
 
 .product__item__pic .label.stockblue {
@@ -1193,6 +1196,9 @@ ol {
 
 .product__item__pic .label.sale {
     background: #ca1515;
+    position: absolute;
+    left: 200px;
+    top: 10px;
 }
 
 .product__hover {

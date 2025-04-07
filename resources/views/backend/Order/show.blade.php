@@ -11,7 +11,7 @@
                             <div class="col-12">
                                 <h4>
                                     <i class="fas fa-globe"></i>
-                                    {{ $order->firstname }},{{ $order->lastname }}{{ $order->email }}.
+                                    {{ $order->firstname }},{{ $order->lastname }}.
                                     <small class="float-right">Date:{{ $order->created_at }}</small>
                                 </h4>
                             </div>
@@ -116,16 +116,17 @@
                                         <tr>
                                             <th>Shipping:</th>
                                             <td>
-                                                @if ($shipping = 0)
+                                                @if ($TotalShipping == 0)
                                                     Free Shipping
                                                 @else
-                                                    ${{ $detail->shipping }}
+                                                    ${{ $TotalShipping }}
                                                 @endif
                                             </td>
                                         </tr>
                                         <tr>
                                             <th>Total:</th>
                                             <td>${{ $total }}
+
                                             </td>
                                         </tr>
                                     </table>
