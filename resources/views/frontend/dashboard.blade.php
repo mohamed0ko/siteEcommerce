@@ -1,5 +1,11 @@
 @extends('frontend.Layouts.master')
 @section('content')
+    @php
+        use Illuminate\Support\Facades\Request;
+        $colorId = Request::input('color') ?? [];
+        $categoryId = Request::input('catergory') ?? [];
+        $sizeId = Request::input('catergory') ?? [];
+    @endphp
     <!-- Categories Section Begin -->
     <section class="categories">
         <div class="container-fluid">
@@ -269,54 +275,34 @@
                         <div class="section-title">
                             <h4>Feature</h4>
                         </div>
-                        <div class="trend__item">
-                            <div class="trend__item__pic">
-                                <img src="img/trend/f-1.jpg" alt="">
-                            </div>
-                            <div class="trend__item__text">
-                                <h6>Bow wrap skirt</h6>
-                                <div class="rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
+                        @foreach ($featureds as $featured)
+                            <div class="trend__item">
+                                <div class="trend__item__pic">
+                                    @php
+                                        $images = is_array($featured->imagepath)
+                                            ? $featured->imagepath
+                                            : json_decode($featured->imagepath, true);
+                                        $firstImage = $images[0] ?? null;
+
+                                    @endphp
+                                    <img src="{{ asset('storage/' . $firstImage) }}" width="90px" height="90px"
+                                        alt="">
                                 </div>
-                                <div class="product__price">$ 59.0</div>
-                            </div>
-                        </div>
-                        <div class="trend__item">
-                            <div class="trend__item__pic">
-                                <img src="img/trend/f-2.jpg" alt="">
-                            </div>
-                            <div class="trend__item__text">
-                                <h6>Metallic earrings</h6>
-                                <div class="rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
+                                <div class="trend__item__text">
+                                    <h6>{{ $featured->name }}</h6>
+                                    <div class="rating">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    </div>
+                                    <div class="product__price">${{ $featured->price }}</div>
                                 </div>
-                                <div class="product__price">$ 59.0</div>
                             </div>
-                        </div>
-                        <div class="trend__item">
-                            <div class="trend__item__pic">
-                                <img src="img/trend/f-3.jpg" alt="">
-                            </div>
-                            <div class="trend__item__text">
-                                <h6>Flap cross-body bag</h6>
-                                <div class="rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                                <div class="product__price">$ 59.0</div>
-                            </div>
-                        </div>
+                        @endforeach
+
+
                     </div>
                 </div>
             </div>

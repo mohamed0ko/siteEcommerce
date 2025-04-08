@@ -32,6 +32,7 @@ class ProductRequest extends FormRequest
             'quantity' => 'required|integer|min:0',
             'price' => 'required|numeric|min:0',
             'discount_price' => 'nullable|numeric|lt:price',
+            'is_featured' => 'string',
             'is_trending' => 'string',
             'category_id' => 'required|exists:categories,id',
             'brand_id' => 'required|exists:brands,id',

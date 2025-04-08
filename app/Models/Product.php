@@ -15,6 +15,7 @@ class Product extends Model
         'quantity',
         'price',
         'discount_price',
+        'is_featured',
         'is_trending',
         'shipping',
         'category_id',

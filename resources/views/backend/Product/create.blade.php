@@ -76,6 +76,18 @@
                                         no_trending</option>
                                 </select>
                             </div>
+                            <div class="form-group">
+                                <label for="status">Feature</label>
+                                <select id="is_trending" name="is_trending" class="form-control custom-select">
+                                    <option selected disabled>Select one</option>
+                                    <option value="1"
+                                        {{ old('is_featured', $product->is_featured ?? '') == 1 ? 'selected' : '' }}>
+                                        is_featured</option>
+                                    <option value="0"
+                                        {{ old('is_featured', $product->is_featured ?? '') == 0 ? 'selected' : '' }}>
+                                        no_featured</option>
+                                </select>
+                            </div>
 
                         </div>
                         <!-- /.card-body -->

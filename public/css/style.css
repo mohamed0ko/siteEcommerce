@@ -433,6 +433,7 @@ ol {
 .header__right__auth {
     display: inline-block;
     margin-right: 25px;
+    padding-left: 33px;
 }
 
 .header__right__auth a {
@@ -3746,3 +3747,5 @@ ol {
         font-size: 24px;
     }
 }
+
+/* .user-photo */

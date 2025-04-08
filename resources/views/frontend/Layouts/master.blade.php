@@ -86,34 +86,7 @@
                 </div>
                 <div class="col-lg-3">
                     <div class="header__right">
-                        <div class="header__right__auth">
-                            {{--  <a href="/login">Login</a>
-                            <a href="/register">Register</a> --}}
-                            @auth
-                                {{--   <!-- Display if user is logged in -->
-                                <a href="{{ url('/dashboard') }}">Dashboard</a>
-                                <!-- Authentication --> --}}
-                                <form method="POST" action="{{ route('logout') }}">
-                                    @csrf
 
-                                    <x-dropdown-link :href="route('logout')"
-                                        onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-                                        {{ __('Log Out') }}
-                                    </x-dropdown-link>
-                                </form>
-                            @else
-                                <!-- Display Login link if the route exists -->
-                                @if (Route::has('login'))
-                                    <a href="{{ route('login') }}">Login</a>
-                                @endif
-
-                                <!-- Display Register link if the route exists -->
-                                @if (Route::has('register'))
-                                    <a href="{{ route('register') }}">Register</a>
-                                @endif
-                            @endauth
-                        </div>
                         <ul class="header__right__widget">
                             <li><span class="icon_search search-switch"></span></li>
                             <li><a href="#"><span class="icon_heart_alt"></span>
@@ -122,13 +95,46 @@
                             <li><a href="{{ route('frontend.cart') }}"><span class="icon_bag_alt"></span>
                                     <div class="tip">{{ $cartCount }}</div>
                                 </a></li>
+
                         </ul>
-                    </div>
+                        <div class="header__right__auth">
+
+                            @auth
+
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+
+                                    <x-dropdown-link :href="route('logout')"
+                                        onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                                        {{ __('Log Out') }}
+                                    </x-dropdown-link>
+
+                            </div>
+                        </div>
+                        </form>
+                    @else
+                        <!-- Display Login link if the route exists -->
+                        @if (Route::has('login'))
+                            <a href="{{ route('login') }}">Login</a>
+                        @endif
+
+                        <!-- Display Register link if the route exists -->
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}">Register</a>
+                        @endif
+                    @endauth
+
+
                 </div>
+
             </div>
-            <div class="canvas__open">
-                <i class="fa fa-bars"></i>
-            </div>
+
+        </div>
+        </div>
+        <div class="canvas__open">
+            <i class="fa fa-bars"></i>
+        </div>
         </div>
     </header>
     <!-- Header Section End -->
@@ -251,7 +257,7 @@
     <div class="search-model">
         <div class="h-100 d-flex align-items-center justify-content-center">
             <div class="search-close-switch">+</div>
-            <form method="GET" class="search-model-form">
+            <form action="{{ route('frontend.Shop') }}" method="GET" class="search-model-form">
                 <input type="text" name="Search" value="{{ Request::input('Search') }}" id="search-input"
                     placeholder="Search here.....">
 
