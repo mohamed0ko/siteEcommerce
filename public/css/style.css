@@ -431,32 +431,49 @@ ol {
 }
 
 .header__right__auth {
-    display: inline-block;
+    display: flex; /* Use flex for better alignment */
+    align-items: center;
+    gap: 12px; /* Better spacing between links */
     margin-right: 25px;
     padding-left: 33px;
 }
 
 .header__right__auth a {
-    font-size: 12px;
+    font-size: 13px;
     color: #666666;
     position: relative;
-    margin-right: 8px;
+    text-decoration: none;
+    transition: color 0.3s;
 }
 
-.header__right__auth a:last-child {
-    margin-right: 0;
-}
-
-.header__right__auth a:last-child:after {
-    display: none;
+.header__right__auth a:hover {
+    color: #111; /* Optional hover effect */
 }
 
 .header__right__auth a:after {
+    content: "";
     position: absolute;
-    right: -8px;
-    top: -2px;
-    content: "/";
-    font-size: 13px;
+    right: -6px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 14px;
+    background-color: #999;
+}
+
+.header__right__auth a:last-child:after {
+    display: none; /* Remove divider after last link */
+}
+@media (max-width: 576px) {
+    .offcanvas__auth {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .offcanvas__auth a:after {
+        display: none;
+    }
 }
 
 .header__right__widget {
@@ -3616,7 +3633,7 @@ ol {
         position: absolute;
         right: -8px;
         top: -2px;
-        content: "/";
+
         font-size: 13px;
     }
     .header__menu {
@@ -3749,3 +3766,157 @@ ol {
 }
 
 /* .user-photo */
+
+/* Avatar Icon */
+.avatar-icon {
+    width: 40px;
+    height: 40px;
+    background-image: url("https://i.pravatar.cc/100?img=8");
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid #ccc;
+    margin-right: 10px;
+}
+
+/* Dropdown wrapper */
+.dropdown2 {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown menu */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 50px;
+    background-color: #fff;
+    min-width: 220px;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    overflow: hidden;
+    z-index: 1000;
+    transition: all 0.3s ease-in-out;
+}
+
+.dropdown2.open .dropdown-menu {
+    display: block;
+}
+
+/* Dropdown header */
+.dropdown-header {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.dropdown-header img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.dropdown-header .username {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+/* Dropdown links */
+.dropdown-link,
+.dropdown-footer a,
+.dropdown-button {
+    display: block;
+    padding: 10px 15px;
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background 0.2s;
+}
+
+.dropdown-link:hover,
+.dropdown-footer a:hover,
+.dropdown-button:hover {
+    background-color: #f3f3f3;
+}
+
+/* Button inside dropdown */
+.dropdown-button {
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+}
+
+/* Footer links */
+.dropdown-footer {
+    border-top: 1px solid #eee;
+    padding: 10px 0;
+}
+/* ///////////////// */
+/* profile account */
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.header {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #2d3748;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.card {
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.card-header {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.form-section {
+    margin-bottom: 1rem;
+}
+
+.form-label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.btn {
+    background-color: #3182ce;
+    color: white;
+    padding: 0.75rem 1.25rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #2b6cb0;
+}

@@ -241,4 +241,38 @@
         $(".size__btn label").removeClass("active");
         $(this).addClass("active");
     });
+
+    //dropdown
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const dropdowns = document.querySelectorAll(".dropdown2"); // Select all dropdowns
+
+        dropdowns.forEach((dropdown) => {
+            const avatar = dropdown.querySelector(".avatar-icon");
+
+            avatar.addEventListener("click", function (e) {
+                dropdown.classList.toggle("open");
+            });
+
+            // Optional: Click outside to close
+            document.addEventListener("click", function (e) {
+                if (
+                    !dropdown.contains(e.target) &&
+                    !avatar.contains(e.target)
+                ) {
+                    dropdown.classList.remove("open");
+                }
+            });
+        });
+    });
+
+    //eoror and succes
+    document.addEventListener("DOMContentLoaded", function () {
+        const successMessage = document.getElementById("success-message");
+        if (successMessage) {
+            setTimeout(function () {
+                successMessage.style.display = "none";
+            }, 4000);
+        }
+    });
 })(jQuery);

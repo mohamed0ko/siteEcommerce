@@ -26,11 +26,6 @@
 </head>
 
 <body>
-    <!-- Page Preloder -->
-    {{--   <div id="preloder">
-        <div class="loader"></div>
-    </div> --}}
-
     <!-- Offcanvas Menu Begin -->
     <div class="offcanvas-menu-overlay"></div>
     <div class="offcanvas-menu-wrapper">
@@ -45,12 +40,47 @@
                 </a></li>
         </ul>
         <div class="offcanvas__logo">
-            <a href="./index.html"><img src="img/logo.png" alt=""></a>
+            <a href="/"><img src="img/logo.png" alt=""></a>
         </div>
         <div id="mobile-menu-wrap"></div>
         <div class="offcanvas__auth">
-            <a href="#">Login</a>
-            <a href="#">Register</a>
+            @auth
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <div class="dropdown2">
+                        <div class="avatar-icon"></div>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-header">
+
+                                <div class="username">{{ Auth::user()->name ?? 'User' }}</div>
+                            </div>
+                            <a href="#" class="dropdown-link">Order History</a>
+                            <a href="#" class="dropdown-link">BubbleMail</a>
+                            <a href="#" class="dropdown-link">Account Settings</a>
+                            <a href="#" class="dropdown-link">Manage Portfolio</a>
+                            <button class="dropdown-button">Sell Your Art</button>
+                            <div class="dropdown-footer">
+                                <a href="#">RB Blog</a>
+
+
+
+                                <x-dropdown-link :href="route('logout')"
+                                    onclick="event.preventDefault();
+                            this.closest('form').submit();">
+                                    {{ __('Log Out') }}
+                                </x-dropdown-link>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            @else
+                @if (Route::has('login'))
+                    <a href="{{ route('login') }}">Login</a>
+                @endif
+                @if (Route::has('register'))
+                    <a href="{{ route('register') }}">Register</a>
+                @endif
+            @endauth
         </div>
     </div>
     <!-- Offcanvas Menu End -->
@@ -86,59 +116,67 @@
                 </div>
                 <div class="col-lg-3">
                     <div class="header__right">
-
-                        <ul class="header__right__widget">
-                            <li><span class="icon_search search-switch"></span></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span>
-                                    <div class="tip">2</div>
-                                </a></li>
-                            <li><a href="{{ route('frontend.cart') }}"><span class="icon_bag_alt"></span>
-                                    <div class="tip">{{ $cartCount }}</div>
-                                </a></li>
-
-                        </ul>
                         <div class="header__right__auth">
-
                             @auth
-
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
+                                    <div class="dropdown2">
+                                        <div class="avatar-icon"></div>
+                                        <div class="dropdown-menu">
+                                            <div class="dropdown-header">
 
-                                    <x-dropdown-link :href="route('logout')"
-                                        onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-                                        {{ __('Log Out') }}
-                                    </x-dropdown-link>
+                                                <div class="username">{{ Auth::user()->name ?? 'User' }}</div>
+                                            </div>
+                                            <a href="#" class="dropdown-link">Order History</a>
+                                            <a href="#" class="dropdown-link">BubbleMail</a>
+                                            <a href="#" class="dropdown-link">Account Settings</a>
+                                            <a href="#" class="dropdown-link">Manage Portfolio</a>
+                                            <button class="dropdown-button">Sell Your Art</button>
+                                            <div class="dropdown-footer">
+                                                <a href="#">RB Blog</a>
 
-                            </div>
+
+
+                                                <x-dropdown-link :href="route('logout')"
+                                                    onclick="event.preventDefault();
+                                        this.closest('form').submit();">
+                                                    {{ __('Log Out') }}
+                                                </x-dropdown-link>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            @else
+                                @if (Route::has('login'))
+                                    <a href="{{ route('login') }}">Login</a>
+                                @endif
+                                @if (Route::has('register'))
+                                    <a href="{{ route('register') }}">Register</a>
+                                @endif
+                            @endauth
+                            <ul class="header__right__widget">
+                                <li><span class="icon_search search-switch"></span></li>
+                                <li><a href="#"><span class="icon_heart_alt"></span>
+                                        <div class="tip">2</div>
+                                    </a></li>
+                                <li><a href="{{ route('frontend.cart') }}"><span class="icon_bag_alt"></span>
+                                        <div class="tip">{{ $cartCount }}</div>
+                                    </a></li>
+                            </ul>
+
+
                         </div>
-                        </form>
-                    @else
-                        <!-- Display Login link if the route exists -->
-                        @if (Route::has('login'))
-                            <a href="{{ route('login') }}">Login</a>
-                        @endif
-
-                        <!-- Display Register link if the route exists -->
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-
-
+                    </div>
                 </div>
-
             </div>
-
-        </div>
-        </div>
-        <div class="canvas__open">
-            <i class="fa fa-bars"></i>
-        </div>
+            <div class="canvas__open">
+                <i class="fa fa-bars"></i>
+            </div>
         </div>
     </header>
     <!-- Header Section End -->
-    <!-- content Section Begin -->
+
+    <!-- Alert Message -->
     @if ($errors->any())
         <div class="alert alert-danger" role="alert">
             <ul>
@@ -164,10 +202,8 @@
             {{ session('error') }}
         </div>
     @endif
+
     @yield('content')
-
-    <!-- content Section End -->
-
 
     <!-- Footer Section Begin -->
     <footer class="footer">
@@ -178,8 +214,7 @@
                         <div class="footer__logo">
                             <a href="/"><img src="{{ asset('img/logo.png') }}" alt=""></a>
                         </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                            cilisis.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                         <div class="footer__payment">
                             <a href="#"><img src="{{ asset('img/payment/payment-1.png') }}"
                                     alt=""></a>
@@ -235,24 +270,20 @@
             </div>
             <div class="row">
                 <div class="col-lg-12">
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     <div class="footer__copyright__text">
                         <p>Copyright &copy;
                             <script>
                                 document.write(new Date().getFullYear());
-                            </script> All rights reserved |<i class="fa fa-heart"
+                            </script> All rights reserved | <i class="fa fa-heart"
                                 aria-hidden="true"></i> by <a href="https://google.com" target="_blank">google</a>
                         </p>
                     </div>
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 </div>
             </div>
         </div>
     </footer>
     <!-- Footer Section End -->
-    @php
-        use Illuminate\Support\Facades\Request;
-    @endphp
+
     <!-- Search Begin -->
     <div class="search-model">
         <div class="h-100 d-flex align-items-center justify-content-center">
@@ -260,32 +291,16 @@
             <form action="{{ route('frontend.Shop') }}" method="GET" class="search-model-form">
                 <input type="text" name="Search" value="{{ Request::input('Search') }}" id="search-input"
                     placeholder="Search here.....">
-
             </form>
         </div>
     </div>
-    <script>
-        // Wait for the document to load
-        document.addEventListener('DOMContentLoaded', function() {
-            // Get the success message element
-            const successMessage = document.getElementById('success-message');
 
-            if (successMessage) {
-                setTimeout(function() {
-                    successMessage.style.display = 'none';
-                }, 4000);
-            }
-        });
-    </script>
-    <!-- Search End -->
+    <script></script>
 
-    <!-- Load jQuery first -->
+
+    <!-- JS Scripts -->
     <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
-
-    <!-- Then load jQuery-UI -->
     <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
-
-    <!-- Other scripts -->
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/jquery.magnific-popup.min.js') }}"></script>
     <script src="{{ asset('js/mixitup.min.js') }}"></script>
@@ -293,8 +308,7 @@
     <script src="{{ asset('js/jquery.slicknav.js') }}"></script>
     <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('js/jquery.nicescroll.min.js') }}"></script>
-    <script src="js/main.js"></script>
-
+    <script src="{{ asset('js/main.js') }}"></script>
 </body>
 
 </html>

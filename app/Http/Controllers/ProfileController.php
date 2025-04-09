@@ -18,7 +18,7 @@ class ProfileController extends Controller
 
     public function edit(Request $request): View
     {
-        return view('profile.edit', [
+        return view('frontend.profile.edit', [
             'user' => $request->user(),
         ]);
     }
@@ -28,16 +28,33 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
-
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        // Handle photo upload if there's a file
+        if ($request->hasFile('photo')) {
+            // Store the file in the 'profile_photos' folder and get the file path
+            $path = $request->file('photo')->store('profile_photos', 'public');
         }
 
-        $request->user()->save();
+        // Update the user data
+        $user = $request->user();
+        $user->fill($request->validated()); // Fill the user data with validated request fields
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        // If a new photo is uploaded, store the photo path (as a string) in the database
+        if (isset($path)) {
+            $user->photo = $path; // Store the photo path in the database
+        }
+
+        // Check if the email is being updated
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = null; // Reset email verification if the email is updated
+        }
+
+        // Save the updated user data
+        $user->save();
+
+        // Redirect back to the profile page with a success message
+        return Redirect::route('profile.edit')->with('success', 'Profile updated successfully.');
     }
+
 
     /**
      * Delete the user's account.
