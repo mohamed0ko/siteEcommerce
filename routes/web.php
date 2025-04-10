@@ -97,11 +97,18 @@ Route::middleware(['editor'])->group(function () {
 
 
 
-Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
-Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
 
 Route::middleware(['user',])->group(function () {
+    //-------profile account user
+
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/change-passord', [ProfileController::class, 'changePassowrd'])->name('profile.change-passord');
+    Route::get('/delete-account', [ProfileController::class, 'deleteAccount'])->name('profile.delete-account');
+    Route::delete('/profile/delete-account', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    //-------cart
 
     Route::get('/cart', [CartController::class, 'cart'])->name('frontend.cart');
     Route::get('/cart/{cartid}', [CartController::class, 'destroy'])->name('frontend.destroy');

@@ -18,7 +18,7 @@ class ProfileController extends Controller
 
     public function edit(Request $request): View
     {
-        return view('frontend.profile.edit', [
+        return view('frontend.profile.update', [
             'user' => $request->user(),
         ]);
     }
@@ -54,11 +54,22 @@ class ProfileController extends Controller
         // Redirect back to the profile page with a success message
         return Redirect::route('profile.edit')->with('success', 'Profile updated successfully.');
     }
+    public function changePassowrd()
+    {
+        return view('frontend.profile.updatepassord');
+    }
 
 
     /**
      * Delete the user's account.
      */
+
+    public function deleteAccount()
+    {
+        return view('frontend.profile.deleteAccount');
+    }
+
+
     public function destroy(Request $request): RedirectResponse
     {
         $request->validateWithBag('userDeletion', [

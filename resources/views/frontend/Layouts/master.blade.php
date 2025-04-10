@@ -129,7 +129,7 @@
                                             </div>
                                             <a href="#" class="dropdown-link">Order History</a>
                                             <a href="#" class="dropdown-link">BubbleMail</a>
-                                            <a href="#" class="dropdown-link">Account Settings</a>
+                                            <a href="/profile" class="dropdown-link">Account Settings</a>
                                             <a href="#" class="dropdown-link">Manage Portfolio</a>
                                             <button class="dropdown-button">Sell Your Art</button>
                                             <div class="dropdown-footer">
