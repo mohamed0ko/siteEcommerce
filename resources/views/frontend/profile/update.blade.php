@@ -7,8 +7,15 @@
         <div class="card">
             <h2>Avatar</h2>
             <div class="upload-section">
-                <img class="avatar-placeholder" src="{{ asset('storage/' . $user->photo) }}" style="object-fit: cover;"
-                    alt="">
+                @if ($user->image)
+                    <img class="avatar-placeholder" src="{{ asset('storage/' . $user->photo) }}" style="object-fit: cover;"
+                        alt="">
+                @else
+                    <div class="avatar-placeholder"
+                        style="background-color: #ccc; display: flex; align-items: center; justify-content: center;">
+                        👤
+                    </div>
+                @endif
 
                 <div>
                     <input type="file" name="photo" id="photo" />

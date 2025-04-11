@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Cart;
+use App\Models\User;
 use Illuminate\Support\ServiceProvider;
 use Nette\Utils\Paginator;
 use Illuminate\Support\Facades\View;

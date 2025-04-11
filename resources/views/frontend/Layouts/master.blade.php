@@ -47,8 +47,21 @@
             @auth
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
+
                     <div class="dropdown2">
-                        <div class="avatar-icon"></div>
+
+                        @if (Auth::user()->photo)
+                            <div class="avatar-icon"
+                                style="background-image: url('{{ asset('storage/' . Auth::user()->photo) }}'); ">
+                            </div>
+                        @else
+                            <div class="avatar-icon"
+                                style="background-color: #ccc; display: flex; align-items: center; justify-content: center;">
+                                👤
+                            </div>
+                        @endif
+
+
                         <div class="dropdown-menu">
                             <div class="dropdown-header">
 
@@ -57,7 +70,11 @@
                             <a href="#" class="dropdown-link">Order History</a>
                             <a href="#" class="dropdown-link">BubbleMail</a>
                             <a href="#" class="dropdown-link">Account Settings</a>
-                            <a href="#" class="dropdown-link">Manage Portfolio</a>
+                            @if (Auth::user()->role === 'admin' or Auth::user()->role === 'editor')
+                                <a href="{{ route('backend.index') }}" class="dropdown-link">Switch to
+                                    selling</a>
+                            @endif
+
                             <button class="dropdown-button">Sell Your Art</button>
                             <div class="dropdown-footer">
                                 <a href="#">RB Blog</a>
@@ -121,7 +138,18 @@
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
                                     <div class="dropdown2">
-                                        <div class="avatar-icon"></div>
+                                        @if (Auth::user()->photo)
+                                            <div class="avatar-icon"
+                                                style="background-image: url('{{ asset('storage/' . Auth::user()->photo) }}'); ">
+                                            </div>
+                                        @else
+                                            <div class="avatar-icon"
+                                                style="background-color: #ccc; display: flex; align-items: center; justify-content: center;">
+                                                👤
+                                            </div>
+                                        @endif
+
+
                                         <div class="dropdown-menu">
                                             <div class="dropdown-header">
 
@@ -130,7 +158,11 @@
                                             <a href="#" class="dropdown-link">Order History</a>
                                             <a href="#" class="dropdown-link">BubbleMail</a>
                                             <a href="/profile" class="dropdown-link">Account Settings</a>
-                                            <a href="#" class="dropdown-link">Manage Portfolio</a>
+                                            @if (Auth::user()->role === 'admin' or Auth::user()->role === 'editor')
+                                                <a href="{{ route('backend.index') }}" class="dropdown-link">Switch to
+                                                    selling</a>
+                                            @endif
+
                                             <button class="dropdown-button">Sell Your Art</button>
                                             <div class="dropdown-footer">
                                                 <a href="#">RB Blog</a>

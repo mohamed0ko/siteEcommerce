@@ -3771,7 +3771,7 @@ ol {
 .avatar-icon {
     width: 40px;
     height: 40px;
-    background-image: url("https://i.pravatar.cc/100?img=8");
+
     background-size: cover;
     background-position: center;
     border-radius: 50%;
