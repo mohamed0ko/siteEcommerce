@@ -9,6 +9,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ContactInfoController;
+use App\Http\Controllers\favoritesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -70,6 +71,8 @@ Route::middleware(['editor'])->group(function () {
     Route::put('/product/update/{product}', [ProductController::class, 'update'])->name('backend.Product.update');
     Route::delete('/product/destroy/{product}', [ProductController::class, 'destroy'])->name('backend.Product.destroy');
 
+
+
     //--------Order
     Route::get('/order', [adminOrderController::class, 'index'])->name('backend.Order.index');
     Route::get('/order/{order}', [adminOrderController::class, 'show'])->name('backend.Order.show');
@@ -116,6 +119,12 @@ Route::middleware(['user',])->group(function () {
     Route::put('/cart/update-all', [CartController::class, 'updateCartAll'])->name('frontend.updateCartAll');
     Route::get('/checkout', [CartController::class, 'checkout'])->name('frontend.checkout');
     Route::post('/checkoutStore', [CartController::class, 'checkoutStore'])->name('frontend.checkoutStore');
+
+    //-------favorites
+
+    Route::get('/favorites', [favoritesController::class, 'favorites'])->name('user.favorites');
+    Route::post('/favorite/{id}', [favoritesController::class, 'toggleFavorite'])->name('favorite.toggle');
+    Route::delete('/favorites/{product}', [favoritesController::class, 'destroy'])->name('favorites.destroy');
 });
 
 

@@ -114,7 +114,22 @@
                                     <ul class="product__hover">
                                         <li><a href="{{ asset('storage/' . $firstImage) }}" class="image-popup"><span
                                                     class="arrow_expand"></span></a></li>
-                                        <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                                        <li>
+                                            <form id="favorite-form-{{ $new->id }}"
+                                                action="{{ route('favorite.toggle', $new->id) }}" method="POST"
+                                                style="display: none;">
+                                                @csrf
+                                            </form>
+
+                                            <a href="#"
+                                                onclick="event.preventDefault(); document.getElementById('favorite-form-{{ $new->id }}').submit();">
+                                                <span class="icon_heart_alt"
+                                                    @if (Auth::check() && Auth::user()->favorites->contains($new->id)) style="color: red;" @endif>
+                                                </span>
+                                            </a>
+                                        </li>
+
+
                                         <li><a href="#"><span class="icon_bag_alt"></span></a></li>
                                     </ul>
                                 @endif

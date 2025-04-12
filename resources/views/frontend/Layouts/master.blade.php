@@ -32,9 +32,15 @@
         <div class="offcanvas__close">+</div>
         <ul class="offcanvas__widget">
             <li><span class="icon_search search-switch"></span></li>
-            <li><a href="#"><span class="icon_heart_alt"></span>
-                    <div class="tip">2</div>
-                </a></li>
+            <li>
+                <a{{--  href="{{ route('user.favorites') }}" --}}>
+                    <span class="icon_heart_alt"></span>
+                    @if ($favoriteCount > 0)
+                        <div class="tip">{{ $favoriteCount }}</div>
+                    @endif
+                    </a>
+            </li>
+
             <li><a href="{{ route('frontend.cart') }}"><span class="icon_bag_alt"></span>
                     <div class="tip">{{ $cartCount }}</div>
                 </a></li>

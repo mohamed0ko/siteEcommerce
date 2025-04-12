@@ -34,5 +34,14 @@ class AppServiceProvider extends ServiceProvider
 
             $view->with('cartCount', $cartCount);
         });
+        View::composer('*', function ($view) {
+            $favoriteCount = 0;
+
+            if (Auth::check()) {
+                $favoriteCount = Auth::user()->favorites()->count();
+            }
+
+            $view->with('favoriteCount', $favoriteCount);
+        });
     }
 }
