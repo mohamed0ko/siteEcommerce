@@ -2244,6 +2244,20 @@ ol {
     font-weight: 600;
     cursor: pointer;
 }
+.shop__cart__table tbody tr .cart__close button {
+    height: 45px;
+    width: 45px;
+    background: #f2f2f2;
+    border-radius: 50%;
+    font-size: 18px;
+    color: #111111;
+    line-height: 44px;
+    text-align: center;
+    display: inline-block;
+    font-weight: 600;
+    cursor: pointer;
+    border: none; /* Remove all borders */
+}
 
 .cart__btn {
     margin-bottom: 50px;

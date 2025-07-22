@@ -35,11 +35,11 @@
                                 <div class="categories__accordion">
                                     <div class="accordion" id="accordionExample">
                                         @foreach ($categories as $category)
-                                            <div class="card">
-                                                <div class="card-heading active">
-                                                    <a href="/shop/{{ $category->id }}">{{ $category->name }}</a>
-                                                </div>
-
+                                            <div class="card-body">
+                                                <ul>
+                                                    <li> <a href="/shop/{{ $category->id }}">{{ $category->name }}</a>
+                                                    </li>
+                                                </ul>
                                             </div>
                                         @endforeach
 
@@ -138,10 +138,25 @@
                                                         New
                                                     </div>
                                                 @endif
-                                                <ul class="product__hover">
+                                                <ul class="product__hover ">
                                                     <li><a href="{{ asset('storage/' . $firstImage) }}"
                                                             class="image-popup"><span class="arrow_expand"></span></a></li>
-                                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                                                    <li>
+                                                        <a href="#"
+                                                            onclick="event.preventDefault(); document.getElementById('favorite-form-{{ $product->id }}').submit();">
+                                                            <span class="icon_heart_alt"
+                                                                @if (Auth::check() && Auth::user()->favorites->contains($product->id)) style="color: red;" @endif>
+                                                            </span>
+                                                        </a>
+                                                    </li>
+
+                                                    <form id="favorite-form-{{ $product->id }}"
+                                                        action="{{ route('favorite.toggle', $product->id) }}"
+                                                        method="POST" style="display: none;">
+                                                        @csrf
+                                                    </form>
+
+
                                                     <li>
                                                         <a href="{{ route('frontend.addToCart', $product->id) }}">
                                                             <span class="icon_bag_alt"></span>

@@ -51,10 +51,7 @@
                                         <td class="cart__price">$ {{ number_format($favorite->price, 2, '.') }}</td>
 
 
-                                        <td class="cart__close">
-                                            <a href="{{ route('frontend.destroy', $favorite->id) }}"><span
-                                                    class="icon_close"></span></a>
-                                        </td>
+
                                         <td class="cart__close">
                                             <form action="{{ route('favorites.destroy', $favorite->id) }}" method="POST"
                                                 style="display:inline;">

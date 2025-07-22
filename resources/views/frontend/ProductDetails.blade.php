@@ -98,7 +98,20 @@
                                     {{ $product->quantity > 0 ? 'Add to Cart' : 'Out of Stock' }}
                                 </button>
                                 <ul>
-                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                                    <li>
+                                        <a href="#"
+                                            onclick="event.preventDefault(); document.getElementById('favorite-form-{{ $product->id }}').submit();">
+                                            <span class="icon_heart_alt"
+                                                @if (Auth::check() && Auth::user()->favorites->contains($product->id)) style="color: red;" @endif>
+                                            </span>
+                                        </a>
+                                    </li>
+
+                                    <form id="favorite-form-{{ $product->id }}"
+                                        action="{{ route('favorite.toggle', $product->id) }}" method="POST"
+                                        style="display: none;">
+                                        @csrf
+                                    </form>
                                     <li><a href="#"><span class="icon_adjust-horiz"></span></a></li>
                                 </ul>
 

@@ -46,7 +46,7 @@
                 </a></li>
         </ul>
         <div class="offcanvas__logo">
-            <a href="/"><img src="img/logo.png" alt=""></a>
+            <a href="/"><img src="{{ asset('img/logo.png') }}" alt=""></a>
         </div>
         <div id="mobile-menu-wrap"></div>
         <div class="offcanvas__auth">
@@ -194,9 +194,14 @@
                             @endauth
                             <ul class="header__right__widget">
                                 <li><span class="icon_search search-switch"></span></li>
-                                <li><a href="#"><span class="icon_heart_alt"></span>
-                                        <div class="tip">2</div>
-                                    </a></li>
+                                <li>
+                                    <a href="{{ route('user.favorites') }}">
+                                        <span class="icon_heart_alt"></span>
+                                        @if ($favoriteCount > 0)
+                                            <div class="tip">{{ $favoriteCount }}</div>
+                                        @endif
+                                    </a>
+                                </li>
                                 <li><a href="{{ route('frontend.cart') }}"><span class="icon_bag_alt"></span>
                                         <div class="tip">{{ $cartCount }}</div>
                                     </a></li>
