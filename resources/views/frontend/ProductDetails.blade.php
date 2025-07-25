@@ -98,7 +98,7 @@
                                     {{ $product->quantity > 0 ? 'Add to Cart' : 'Out of Stock' }}
                                 </button>
                                 <ul>
-                                    <li>
+                                    {{--  <li>
                                         <a href="#"
                                             onclick="event.preventDefault(); document.getElementById('favorite-form-{{ $product->id }}').submit();">
                                             <span class="icon_heart_alt"
@@ -111,8 +111,8 @@
                                         action="{{ route('favorite.toggle', $product->id) }}" method="POST"
                                         style="display: none;">
                                         @csrf
-                                    </form>
-                                    <li><a href="#"><span class="icon_adjust-horiz"></span></a></li>
+                                    </form> --}}
+
                                 </ul>
 
 
@@ -262,11 +262,12 @@
                                     ? $item->imagepath
                                     : json_decode($item->imagepath, true);
                                 $firstImage = !empty($images) ? $images[0] : null;
+
                             @endphp
 
                             @if ($firstImage)
-                                <div class="product__item__pic set-bg"
-                                    style="background-image: url('{{ asset('storage/' . $firstImage) }}');">
+                                <div class="product__item__pic set-bg" style="background-image: url('');">
+                                    <img src="{{ asset('storage/' . $firstImage) }}" alt="">
                                     @if ($item->discount_price)
                                         <div class="label sale" style="padding: 4px 8px;">Sale</div>
                                     @endif

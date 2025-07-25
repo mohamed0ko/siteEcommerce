@@ -312,7 +312,14 @@
                                         <i class="fa fa-star"></i>
                                         <i class="fa fa-star"></i>
                                     </div>
-                                    <div class="product__price">${{ $featured->price }}</div>
+                                    <div class="product__price">
+                                        @if ($featured->discount_price and $featured->price)
+                                            ${{ $featured->discount_price }}
+                                            <span>${{ $featured->price }}</span>
+                                        @else
+                                            $ {{ $featured->price }}
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
                         @endforeach

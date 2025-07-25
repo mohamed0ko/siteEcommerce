@@ -1180,6 +1180,7 @@ ol {
 }
 
 .product__item__pic {
+    background-position: center;
     height: 360px;
     position: relative;
     overflow: hidden;
