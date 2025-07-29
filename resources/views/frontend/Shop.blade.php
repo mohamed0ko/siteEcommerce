@@ -109,6 +109,7 @@
                     </div>
 
                     <div class="col-lg-9 col-md-9">
+
                         <div class="row">
                             @foreach ($products as $product)
                                 <div class="col-lg-4 col-md-6">
@@ -194,13 +195,11 @@
                             @endforeach
 
                             <div class="col-lg-12 text-center">
-                                <div class="pagination__option">
-                                    <a href="#">1</a>
-                                    <a href="#">2</a>
-                                    <a href="#">3</a>
-                                    <a href="#"><i class="fa fa-angle-right"></i></a>
+                                <div class="">
+                                    {{ $products->links('pagination::bootstrap-5') }}
                                 </div>
                             </div>
+
                         </div>
                     </div>
 

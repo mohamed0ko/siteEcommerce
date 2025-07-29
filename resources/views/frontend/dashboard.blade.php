@@ -333,7 +333,7 @@
     <!-- Trend Section End -->
 
     <!-- Discount Section Begin -->
-    <section class="discount">
+    {{--  <section class="discount">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 p-0">
@@ -371,7 +371,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
     <!-- Discount Section End -->
 
     <!-- Services Section Begin -->

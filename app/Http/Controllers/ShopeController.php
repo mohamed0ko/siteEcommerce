@@ -64,8 +64,8 @@ class ShopeController extends Controller
         $sql = $productQuery->toSql();
         $bindings = $productQuery->getBindings();
         $results = $productQuery->get();
-        $products = $productQuery->get();
-        //dd($products);
+        $products = $productQuery->paginate(5);
+
 
 
         $prices = $products->pluck('price')->merge($products->pluck('discount_price'))->filter()->all();
